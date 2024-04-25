@@ -11,7 +11,7 @@ export default {
       backgroundImage: {
         'rock': "url('/public/rock.png')",
         'paper': "url('/public/paper.png')",
-        'sc': "url('/public/sc.svg')",
+        'ton': "url('/public/ton.svg')",
       },
     },
   },

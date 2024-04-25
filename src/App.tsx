@@ -30,18 +30,18 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDi
 import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
 import { JoinGame, StopGame } from './contracts/kkg';
 const statusColorMap = {
-  3n: "success",
-  2n: "warning",
-  1n: "warning",
-  0n: "danger",
+  3: "success",
+  2: "warning",
+  1: "warning",
+  0: "danger",
 
 };
 
 const statusValueMap = {
-  3n: "Restart", //完成
-  2n: "Tie", //平局
-  1n: "Waiting", //等待对手
-  0n: "Idle", //空闲
+  3: "Restart", //完成
+  2: "Tie", //平局
+  1: "Waiting", //等待对手
+  0: "Idle", //空闲
 };
 
 function App() {
@@ -174,8 +174,8 @@ function App() {
         );
       case "status":
         return (
-          <Chip className="capitalize" color={statusColorMap[row.status]} size="sm" variant="flat">
-            {statusValueMap[cellValue]}
+          <Chip className="capitalize" color={statusColorMap[Number(row.status)]} size="sm" variant="flat">
+            {statusValueMap[Number(cellValue)]}
           </Chip>
         );
       case "count":
