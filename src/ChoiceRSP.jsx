@@ -41,7 +41,7 @@ export default function App(props) {
       <RadioGroup
         color="warning"
         label=""
-        description="Please make your choice."
+        description="Block confirmation takes about 30 seconds, please be patient."
         // defaultValue="1"
         onValueChange={handleClick}
         value={selected}
@@ -51,20 +51,21 @@ export default function App(props) {
           <FontAwesomeIcon icon={faHandBackFist} className="px-3" />
 
         </CustomRadio>
-        <CustomRadio value="2" className="">
-          {/* <div className=" bg-paper bg-cover bg-contain"> */}
-          {/* Paper */}
-          {/* </div> */}
-          <FontAwesomeIcon icon={faHand} className="px-3" />
-        </CustomRadio>
         <CustomRadio
           // description="Scissors"
-          value="3"
+          value="2"
         // className="bg-sc bg-cover bg-center w-64 h-64 bg-red-500 bg-opacity-50"
         >
           {/* Scissors  */}
           <FontAwesomeIcon icon={faHandScissors} className="px-3" />
         </CustomRadio>
+        <CustomRadio value="3" className="">
+          {/* <div className=" bg-paper bg-cover bg-contain"> */}
+          {/* Paper */}
+          {/* </div> */}
+          <FontAwesomeIcon icon={faHand} className="px-3" />
+        </CustomRadio>
+        
 
       </RadioGroup>
     </>

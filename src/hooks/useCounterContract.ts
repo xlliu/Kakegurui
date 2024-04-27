@@ -11,7 +11,8 @@ export function useCounterContract() {
   const [gameListActive, setGameListActive] = useState<GameListActive>();
   const [resultByOne, setResultByOne] = useState<Game>();
 
-  const [balance, setBalance] = useState<null | String>();
+  const [balance, setBalance] = useState<Map<Address, bigint>>();
+  const [sumBalance, setSumBalance] = useState<string>();
 
   
   const { sender } = useTonConnect();
@@ -20,19 +21,13 @@ export function useCounterContract() {
 
   const counterContract = useAsyncInitialize(async () => {
     if (!client) return;
+    console.log('触发useCounterContract的client 回调打开合约');
     const contract = new Counter(
-    //   Address.parse('EQBYLTm4nsvoqJRvs_L-IGNKwWs5RKe19HBK_lFadf19FUfb') // replace with your address from tutorial 2 step 8
-      // Address.parse('EQDwBh00WyfnEhMTzeBDSPaM4GTV2gGvxwuW0QQ7nht2Em36')
-      
-      // Address.parse('EQDfZCQvsFzOEYZbe22e6YXNSg3QQVWMuvxTkaegSw5ivpsR')
-      // Address.parse('EQDKDyiHmE1FyFk96B8Ilxav4hRQ3cyesWFgj_zvd-BNVGTs')
-      Address.parse('EQDGvCNHc1UvRR3QtItn9GiPtb2UEeW9QbqbTP55HE24c4wL')
-      
-      
+      Address.parse('EQAMRK6UZ5QUyjIDoPn2WcrgXWBDODJLxkSbZCYl_ZMF6Ip-')
     );
     return client.open(contract) as OpenedContract<Counter>;
   }, [client]);
-
+  console.log('触发useCounterContract的中代码');
   useEffect(() => {
     async function getValue() {
       if (!counterContract) return;
@@ -40,8 +35,13 @@ export function useCounterContract() {
       setActiveRoomCounts(activeRoomCounts.toString());
       const gameListActive = await counterContract.getGameListActive();
       setGameListActive(gameListActive);
-      const balance = await counterContract.getBalance();
-      setBalance(balance.toString());
+      const balance = await counterContract.getBalanceOf();
+      // console.log('balance:', balance);
+      const bn = new Map(balance)
+      setBalance(bn)
+      // console.log('bn:', bn);
+      const sumbalance = await counterContract.getBalance();
+      setSumBalance(sumbalance);
       console.log('触发useCounterContract的counterContract定时 回调');
 
       // const resultByOne = await counterContract.getGameResultByOne(BigInt(2));
@@ -52,7 +52,7 @@ export function useCounterContract() {
     }
     console.log('触发useCounterContract的counterContract回调');
     getValue();
-    const intervalId = setInterval(getValue, 30000); // 每5秒自动刷新数据
+    const intervalId = setInterval(getValue, 60000); // 每5秒自动刷新数据
     
     return () => {
       clearInterval(intervalId); // 在组件卸载时清除定时器
@@ -68,7 +68,7 @@ export function useCounterContract() {
   // }
   
 
-  function sendTx(amount:  { value: bigint, bounce?: boolean| null | undefined } , payload: StopGame | Fee | 'ResetGame' | 'ResetBalances' | JoinGame | Deploy | ChangeOwner) {
+  function sendTx(amount , payload) {
     return counterContract?.send(sender,amount, payload);
   }
 
@@ -77,7 +77,9 @@ export function useCounterContract() {
     activeRoomCounts: activeRoomCounts,
     gameListActive: gameListActive,
     balance: balance,
+    sumBalance:sumBalance,
     address: counterContract?.address.toString(),
+    setBalance: setBalance,
     sendTx: sendTx
   };
 }

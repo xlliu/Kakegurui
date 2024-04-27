@@ -4,9 +4,9 @@
 import '@twa-dev/sdk';
 import React from 'react'
 
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Input, Spacer, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Avatar, AvatarGroup } from "@nextui-org/react";
-import { TonConnectButton, useTonWallet, useTonConnectUI } from '@tonconnect/ui-react';
-// import {TonConnectButton, useTonConnectUI, useTonWallet, useTonAddress} from "@tonconnect/ui-react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Input, Spacer, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu } from "@nextui-org/react";
+// import { TonConnectButton, useTonWallet, useTonConnectUI } from '@tonconnect/ui-react';
+import { TonConnectButton, useTonConnectUI, useTonWallet, useTonAddress } from "@tonconnect/ui-react";
 import { useTonConnect } from './hooks/useTonConnect';
 import { useCounterContract } from './hooks/useCounterContract';
 
@@ -20,7 +20,7 @@ import { AcmeLogo } from "./AcmeLogo";
 import { Tip } from "./Tip";
 
 import { Address, toNano, fromNano } from '@ton/core';
-import { columns,init_datas, init_datas_dict } from "./data";
+import { columns, init_datas, init_datas_dict } from "./data";
 import './App.css'
 
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, getKeyValue, Radio, RadioGroup } from "@nextui-org/react";
@@ -28,167 +28,136 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, 
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, User } from "@nextui-org/react";
 
 import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
-import { JoinGame, StopGame } from './contracts/kkg';
+import { JoinGame, Player, StopGame } from './contracts/kkg';
+
+import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/react";
+import { FaRegHandRock, FaRegHandPaper, FaRegHandScissors } from 'react-icons/fa';
+import { BiMoneyWithdraw } from "react-icons/bi";
+import { Progress } from "@nextui-org/react";
+
+import { useTranslation } from "react-i18next";
+
 const statusColorMap = {
   3: "success",
   2: "warning",
   1: "warning",
-  0: "danger",
+  0: "warning", 
 
 };
 
 const statusValueMap = {
-  3: "Restart", //完成
+  3: "Success", //完成
   2: "Tie", //平局
   1: "Waiting", //等待对手
-  0: "Idle", //空闲
+  0: "Available", //空闲
 };
 
+const resMap = {
+  "3": <FaRegHandPaper />, //完成
+  "2": <FaRegHandScissors />, //平局
+  "1": <FaRegHandRock />, //等待对手
+  "0": <AvatarIcon />, //空闲
+};
+
+const addr_args = { urlSafe: true, bounceable: false, testOnly: true }
+
 function App() {
+  const { t } = useTranslation();
   // const [count, setCount] = useState(0)
   const { connected } = useTonConnect();
   const wallet = useTonWallet();
   const [tonConnectUi] = useTonConnectUI();
+  const userFriendlyAddress = useTonAddress();
 
-  const { resultByOne, activeRoomCounts, gameListActive, balance, address, sendTx } = useCounterContract();
+  console.log("useTonAddress!", userFriendlyAddress);
+
+  const { resultByOne, activeRoomCounts, gameListActive, balance, address, sendTx, setBalance, sumBalance } = useCounterContract();
   const colors = ["default", "primary", "secondary", "success", "warning", "danger"];
   const [selectedColor, setSelectedColor] = React.useState("default");
 
-
-  // const map = new Map(gameListActive);
-  // const map = new Map(Object.entries(init_datas_dict));
-  // const [datas, setDatas] = React.useState(map.values());
-  // const datas = map.values();
-  // setDatas(map.values());
+  // const map2 = new Map(Object.entries(init_datas_dict));
+  // let datas = map2.values()
+  let datas  = [];
+  let bn = ""
   const get_map = new Map(gameListActive);
-  console.log('外层newM:', get_map);
-  let myObject = Object.fromEntries(get_map);
-  const newMessage = {
-    ...init_datas_dict,
-    ...myObject // 修改 gameId
-  };
-  
-  // const newM = new Map(newMessage);
-  // console.log('转换后的 Map 对象:', map);
-  console.log('newM:', get_map);
-  console.log('myObject:', myObject);
-  console.log('newMessage:', newMessage);
-  const map2 = new Map(Object.entries(newMessage));
-  // setDatas(map2.values());
-  const datas = map2.values()
+  if (get_map.size != 0) {
+    let myObject = Object.fromEntries(get_map);
+    console.log('myObject:', myObject);
+    const newMessage = {
+      ...init_datas_dict,
+      ...myObject // 修改 gameId
+    };
+    const map2 = new Map(Object.entries(newMessage));
+    datas = map2.values()
+    console.log('datas:', datas);
+  }
 
+  if (wallet) {
+    const newMap = new Map();
 
-  // React.useEffect(() => {
-  //   async function getDatas() {
-  //     if (!get_map) return;
-  //     let myObject = Object.fromEntries(get_map);
-  //     const newMessage = {
-  //       ...init_datas_dict,
-  //       ...myObject // 修改 gameId
-  //     };
-      
-  //     // const newM = new Map(newMessage);
-  //     console.log('转换后的 Map 对象:', map);
-  //     console.log('newM:', get_map);
-  //     console.log('myObject:', myObject);
-  //     console.log('newMessage:', newMessage);
-  //     const map2 = new Map(Object.entries(newMessage));
-  //     setDatas(map2.values());
-  //   }
-  //   getDatas();
-  // }, []);
-  
-  // if (map.values().size > 0){
-    
-  // }
-  
+    balance?.forEach((value, key) => {
+      // 在这里进行键的转换操作，假设将键转换为大写形式
+      const newKey = key.toString(addr_args);
+      // 将转换后的键值对添加到新的 Map 中
+      newMap.set(newKey, value);
+    });
+    bn = newMap.get(userFriendlyAddress);
+  }
 
-  // 输出转换后的 Map 对象
-  // console.log('转换后的 Map 对象:', map);
-  // console.log('转换后的 Map 对象:', map.values());
-  // console.log('转换后的 Map 对象:', map);
-
-  // const rows = [
-  //   {
-  //     "$$type": "GameSafe",
-  //   "betAmount": 50000000n,
-  //   "count": 1n,
-  //   "currentBetAmount": 50000000n,
-  //   "current_count": 1n,
-  //   "finish": false,
-  //   "lose_addr": null,
-  //   "lose_stop": false,
-  //   "choice": 0n,
-  //   "ready": true,
-  //   "player2": null,
-  //   "roomId": 1n,
-  //   "status": 1n,
-  //   "win_addr": null,
-  //   "win_last_addr": null
-  //   }
-  // ]
 
 
   const renderCell = React.useCallback((row, columnKey) => {
     const cellValue = row[columnKey];
-
-    console.log('columnKey!', columnKey);
-
     switch (columnKey) {
-      case "roomId":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{cellValue.toString()}</p>
-            {/* <p className="text-bold text-sm capitalize text-default-400">{user.team}</p> */}
-          </div>
-        );
       case "currentBetAmount":
         return (
           <div className="flex flex-row space-x-3 items-center justify-start">
-              <Image
-              width={25}
-              alt=""
-              src="./ton.svg"
-            />
-            <p className=""><strong>{fromNano(cellValue)}</strong></p>
-            {/* <p className="text-bold text-sm capitalize text-default-400">TonCoin</p> */}
+            <User
+              avatarProps={{ src: "./ton.svg" }}
+              description="Toncoin"
+              name={Number(fromNano(cellValue)).toLocaleString()}
+            ></User>
           </div>
         );
       case "player1":
         return (
           <AvatarGroup isBordered>
             <Avatar
-              name={row.player1 ? row.player1?.addr.toString().slice(-4) : ""}
               isDisabled={row.player1 ? false : true}
-              // classNames={{
-              //   base: "bg-gradient-to-br from-[#FFB457] to-[#FF705B]",
-              //   icon: "text-black/80",
-              // }}
+              isBordered ={row.player1 ? true : false}
+              icon={row.player1 ? resMap[(row.player1).choice.toString()] : <AvatarIcon />}
+              radius="sm"
+              color={row.player1 ? (row.player1.addr.toString(addr_args) == userFriendlyAddress ? "warning" : "default") : "default"}
             />
             <Avatar
-              name={row.player2 ? row.player2?.addr.toString().slice(-4) : ""}
               isDisabled={row.player2 ? false : true}
-              // classNames={row.player2 ? false : true}
+              isBordered ={row.player2 ? true : false}
+              icon={row.player2 ? resMap[(row.player2).choice.toString()] : <AvatarIcon />}
+              radius="sm"
+              color={row.player2 ? (row.player2.addr.toString(addr_args) == userFriendlyAddress ? "warning" : "default") : "default"}
             />
           </AvatarGroup>
+
         );
       case "status":
         return (
-          <Chip className="capitalize" color={statusColorMap[Number(row.status)]} size="sm" variant="flat">
-            {statusValueMap[Number(cellValue)]}
-          </Chip>
+          <div>
+            <Chip className="capitalize" variant="flat" color={statusColorMap[Number(row.status)]} size="sm">
+              {t(statusValueMap[Number(cellValue)])}
+            </Chip>
+          </div>
         );
       case "count":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-sm capitalize">{row.win_addr ? row.win_addr.toString().slice(-4) : ""} </p>
-            {/* <p className="text-bold text-sm capitalize text-default-400">{user.team}</p> */}
+            <p className="text-bold text-xs capitalize">{row.win_addr ? row.win_addr.toString(addr_args).slice(-4) : ""} </p>
+            {/* <p className="text-bold text-sm capitalize text-default-400">Winer</p> */}
           </div>
         );
       default:
         return cellValue;
     }
-  }, []);
+  }, [gameListActive]);
 
 
 
@@ -197,7 +166,13 @@ function App() {
     gameId: BigInt(12345)
   };
 
+  const [bet, setBet] = React.useState(toNano('1'));
+
   let sendAmount = {
+    value: bet,
+  }
+
+  let sendWithdraw = {
     value: toNano('0.05'),
   }
 
@@ -206,7 +181,7 @@ function App() {
     gameId: BigInt(1),
     move: BigInt(1),
     count: BigInt(1),
-    betAmount: BigInt(toNano('0.05')),
+    betAmount: bet,
   }
 
   const [joinGameMessage, setJoinGameMessage] = React.useState(jg);
@@ -219,7 +194,10 @@ function App() {
   const [selected, setSelected] = React.useState(1n);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const handleRowClick = (selected: React.SetStateAction<bigint>) => {
+
     console.log('Row clicked!', selected);
+
+
     setSelected(selected)
     const newMessage = {
       ...joinGameMessage,
@@ -231,41 +209,50 @@ function App() {
   };
 
   const showForm = () => {
-    console.log('Row clicked!', joinGameMessage);
+    console.log('joinGameMessage!', joinGameMessage);
+    console.log('sendAmount!', sendAmount);
   };
   return (
     <>
       <header className="mx-auto dark text-foreground bg-background">
         <div className="flex items-start justify-between">
-          <Navbar className="flex items-start ">
-            <NavbarContent justify="start">
+          <Navbar isBordered maxWidth="2xl" className="flex items-start ">
+            <NavbarContent justify="start" >
               <NavbarBrand className="mr-4">
                 <AcmeLogo />
-                <p className="hidden sm:block font-bold text-inherit">ACME</p>
+                <p className="hidden sm:block font-bold text-inherit">{t("Kakegurui")}</p>
               </NavbarBrand>
-              <NavbarContent className="hidden sm:flex gap-3">
-                <NavbarItem>
-                  <Link color="foreground" href="#">
-                    Features
-                  </Link>
-                </NavbarItem>
-                <NavbarItem isActive>
-                  <Link href="#" aria-current="page" color="secondary">
-                    Customers
-                  </Link>
-                </NavbarItem>
-                <NavbarItem>
-                  <Link color="foreground" href="#">
-                    Integrations
-                  </Link>
-                </NavbarItem>
-              </NavbarContent>
             </NavbarContent>
             <NavbarContent as="div" className="items-center" justify="end">
-              <div className='Card'>
-                <b>Balance</b>
-                <div>{balance ?? 'Loading...'}</div>
+
+              <div className='flex flex-col' >
+                <p className='text-xs font-bold'>{t("Withdraw")}</p>
+                <div className='flex flex-row items-center justify-between'>
+                  <div >
+                    {bn != null ? fromNano(bn) : '0'}
+                  </div>
+                  <button onClick={() => sendTx(sendWithdraw, "Withdraw")}>
+                    <BiMoneyWithdraw />
+                  </button>
+
+                </div>
+
               </div>
+              {/* <div className='flex flex-col' >
+                <b>sumBalance</b>
+                <div className='flex flex-row items-center justify-between'>
+                  <div >
+                    {sumBalance ?? '...'}
+                  </div>
+                  <button onClick={() => sendTx(sendWithdraw, "withdraw safe")}>
+                    <BiMoneyWithdraw />
+                  </button>
+
+                </div>
+
+              </div> */}
+
+
               <div>
                 <TonConnectButton />
               </div>
@@ -274,14 +261,14 @@ function App() {
         </div>
       </header>
 
-      <main className="dark text-foreground bg-background">
-        <div className='container mx-auto h-screen space-y-4'>
+      <main className="dark text-foreground bg-background md:h-screen">
+        <div className='container mx-auto space-y-4'>
           <div className='flex flex-col md:flex-row '>
             <div className='md:w-2/3 rounded-sm p-3'>
               <Card className="" radius="sm">
                 <CardHeader className="flex gap-3 bg-default-100">
                   <div className="flex flex-raw justify-between w-[100%]">
-                    <div className="text-md flex items-end px-1 ">Active Room {activeRoomCounts}</div>
+                    <div className="text-md flex items-end px-1 ">{t("Active Room")} {activeRoomCounts}</div>
                     <div className="text-small text-default-500 flex items-center px-1 ">
                       <Tip />
                     </div>
@@ -292,7 +279,7 @@ function App() {
                   <Table
                     color="warning"
                     selectionMode="single"
-                    defaultSelectedKeys={[selected]}
+                    defaultSelectedKeys={[selected.toString()]}
                     aria-label="Example static collection table"
                     radius="sm"
                     fullWidth
@@ -304,7 +291,7 @@ function App() {
                           {column.label}
                         </TableColumn>}
                     </TableHeader>
-                    <TableBody items={datas}>
+                    <TableBody items={datas} emptyContent={"Waiting for the blockchain to return data."}>
                       {(item: { roomId: React.SetStateAction<bigint> }) => (
                         <TableRow key={item.roomId}>
                           {(columnKey: any) => <TableCell onClick={() => handleRowClick(item.roomId)}>{renderCell(item, columnKey)}</TableCell>}
@@ -319,7 +306,7 @@ function App() {
                   <i className="fa-solid fa-user"></i>
                   <i className="z-index fas fa-coffee"></i>
                   <Button color="primary" onPress={handleRowClick} className="rounded-sm px-3">
-                    Creat Room
+                  {t("Creat Room")}
                   </Button>
                 </CardFooter>
               </Card>
@@ -362,14 +349,14 @@ function App() {
           <ModalContent>
             {(onClose: any) => (
               <>
-                <ModalHeader className="flex flex-col gap-2">Room Number {selected.toString()} </ModalHeader>
+                <ModalHeader className="flex flex-col gap-2">{t("Room Number")} {selected.toString()} </ModalHeader>
                 <ModalBody className="flex flex-col gap-2">
                   <div className="flex-1 w-full ">
                     <ChoiceMode joinGameMessage={joinGameMessage} updateJoinGameMessage={updateJoinGameMessage} />
 
                   </div>
                   <div className="flex-2 w-full">
-                    <ChoiceAmount joinGameMessage={joinGameMessage} updateJoinGameMessage={updateJoinGameMessage} />
+                    <ChoiceAmount joinGameMessage={joinGameMessage} updateJoinGameMessage={updateJoinGameMessage} setBet={setBet} />
 
                   </div>
                   <div className="flex-3 w-full " >
@@ -377,11 +364,20 @@ function App() {
 
                   </div>
                 </ModalBody>
+
                 <ModalFooter>
+                  {/* <Progress
+                    hidden
+                    size="sm"
+                    isIndeterminate
+                    aria-label="Loading..."
+                    label="The table will be refreshed after the block is confirmed, please wait"
+                    className="max-w-md"
+                  /> */}
                   <Button color="danger" variant="flat" onPress={onClose}>
-                    Close
+                    {t("Close")}
                   </Button>
-                  <Button color="primary" onPress={onClose}>
+                  {/* <Button color="primary" onPress={onClose}>
                     Join Game
                   </Button>
                   <Button color="primary" onPress={showForm}>
@@ -396,15 +392,21 @@ function App() {
                   // color="primary"
                   >
                     sendTx
+                  </Button> */}
+                  <Button color="primary" onPress={showForm}>
+                    {t("showForm")}
                   </Button>
                   {wallet ? (
                     // <Button onClick={() => tonConnectUi.sendTransaction(tx)}>
-                    <Button onClick={() => sendTx(sendAmount, joinGameMessage)}>
-                      Join Game
+                    <Button onClick={() => sendTx(sendAmount, joinGameMessage)} color="primary">
+                      {get_map.get(selected) ? 
+                        ((get_map.get(selected)!!.status == 2 || get_map.get(selected)!!.status == 3) ? t("Reset and Join Game"):t("Join Game"))
+                        :t("Join Game")
+                      }
                     </Button>
                   ) : (
                     <Button onClick={() => tonConnectUi.openModal()}>
-                      Join Game
+                      t(Connect Wallet)
                     </Button>
                   )}
                 </ModalFooter>

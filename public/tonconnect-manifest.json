@@ -1,5 +1,7 @@
 {
-    "url": "https://xlliu.github.com/Kakegurui",
-    "name": "Kakegurui",
-    "iconUrl": "https://xlliu.github.com/Kakegurui/public/sc.png"
-  }
+  "url": "https://xlliu.github.com/Kakegurui",
+  "name": "Kakegurui",
+  "iconUrl": "https://xlliu.github.com/Kakegurui/sc.png",
+  "termsOfUseUrl": "https://xlliu.github.com/Kakegurui/terms-of-use.txt",
+  "privacyPolicyUrl": "https://xlliu.github.com/Kakegurui/privacy-policy.txt"
+}

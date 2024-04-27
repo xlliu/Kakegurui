@@ -15,10 +15,10 @@ import { Address, toNano, fromNano } from '@ton/core';
 // current_count
 // count
 const columns = [
-    {
-        key: "roomId",
-        label: "Room",
-    },
+    // {
+    //     key: "roomId",
+    //     label: "Room",
+    // },
     
     {
         key: "currentBetAmount",
@@ -31,7 +31,7 @@ const columns = [
     
     {
       key: "count",
-      label: "Round",
+      label: "Winer",
     },
     // {
     //   key: "finish",
@@ -63,7 +63,7 @@ const init_datas_dict = {
     },
     2n : {
       roomId: "2",
-      currentBetAmount: toNano("300"),
+      currentBetAmount: toNano("100"),
       player1: null,
       status: 0n,
       count: 1n,
@@ -71,7 +71,7 @@ const init_datas_dict = {
     },
     3n : {
       roomId: "3",
-      currentBetAmount: toNano("500"),
+      currentBetAmount: toNano("100"),
       player1: null,
       status: 0n,
       count: 1n,
@@ -79,7 +79,7 @@ const init_datas_dict = {
     },
     4n : {
       roomId: "4",
-      currentBetAmount: toNano("1000"),
+      currentBetAmount: toNano("300"),
       player1: null,
       status: 0n,
       count: 1n,
@@ -87,7 +87,63 @@ const init_datas_dict = {
     },
     5n : {
       roomId: "5",
-      currentBetAmount: toNano("5000"),
+      currentBetAmount: toNano("300"),
+      player1: null,
+      status: 0n,
+      count: 1n,
+      current_count: 0n,
+    },
+    6n : {
+      roomId: "6",
+      currentBetAmount: toNano("500"),
+      player1: null,
+      status: 0n,
+      count: 1n,
+      current_count: 0n,
+    },
+    7n : {
+      roomId: "7",
+      currentBetAmount: toNano("500"),
+      player1: null,
+      status: 0n,
+      count: 1n,
+      current_count: 0n,
+    },
+    8n : {
+      roomId: "8",
+      currentBetAmount: toNano("1000"),
+      player1: null,
+      status: 0n,
+      count: 1n,
+      current_count: 0n,
+    },
+    9n : {
+      roomId: "9",
+      currentBetAmount: toNano("3000"),
+      player1: null,
+      status: 0n,
+      count: 1n,
+      current_count: 0n,
+    },
+    10n : {
+      roomId: "10",
+      currentBetAmount: toNano("10000"),
+      player1: null,
+      status: 0n,
+      count: 1n,
+      current_count: 0n,
+    },
+    11n : {
+      roomId: "11",
+      currentBetAmount: toNano("50000"),
+      player1: null,
+      status: 0n,
+      count: 1n,
+      current_count: 0n,
+    },
+    12n : {
+      roomId: "12",
+      currentBetAmount: toNano("100000"),
       player1: null,
       status: 0n,
       count: 1n,

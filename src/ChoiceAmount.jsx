@@ -1,9 +1,9 @@
 import React from "react";
 import {RadioGroup, Radio, cn, Tabs, Tab, Card, CardBody, CardHeader} from "@nextui-org/react";
-
+import { Address, toNano, fromNano } from '@ton/core';
 
 export default function App(props) {
-  const { joinGameMessage, updateJoinGameMessage } = props;
+  const { joinGameMessage, updateJoinGameMessage,setBet } = props;
   let tabs = [
     {
       id: "100",
@@ -18,12 +18,8 @@ export default function App(props) {
       label: "500",
     },
     {
-      id: "1000",
-      label: "1k",
-    },
-    {
-      id: "5000",
-      label: "5k",
+      id: "3000",
+      label: "3k",
     },
     {
       id: "10000",
@@ -45,8 +41,10 @@ export default function App(props) {
     setSelected(selected)
     const newMessage = {
       ...joinGameMessage,
-      betAmount: BigInt(parseInt(selected)) // 修改 gameId
+      // betAmount: BigInt(parseInt(selected)) // 修改 gameId
+      betAmount: toNano(selected)
     };
+    setBet(toNano(selected))
     updateJoinGameMessage(newMessage);
   };
 
