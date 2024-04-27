@@ -34,6 +34,8 @@ import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/react";
 import { FaRegHandRock, FaRegHandPaper, FaRegHandScissors } from 'react-icons/fa';
 import { BiMoneyWithdraw } from "react-icons/bi";
 import { Progress } from "@nextui-org/react";
+import '@twa-dev/sdk';
+
 
 import { useTranslation } from "react-i18next";
 
