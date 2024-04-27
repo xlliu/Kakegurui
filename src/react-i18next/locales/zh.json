@@ -1,0 +1,20 @@
+{
+	"Kakegurui": "狂赌之渊",
+    "Withdraw": "可提取",
+    "Active Room":"活跃的房间",
+    "Creat Room":"创建房间",
+    "Room Number":"房间号",
+    "Close":"关闭",
+    "showForm":"展示提交",
+    "Connect Wallet":"连接钱包",
+    "Join Game":"加入对局",
+    "Reset and Join Game":"重置房间并加入",
+
+    "Single Game": "单局决胜",
+    "CONFIDENTIAL": "机密",
+    "Play a game.": "玩一局游戏，胜利者获得奖金，平局则退回扣除手续费和Gas费用后的投注金额",
+    "Success": "已完成对局", 
+    "Tie": "和",
+    "Waiting": "等待对手",
+    "Available": "房间可用"
+}
