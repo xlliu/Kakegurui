@@ -24,8 +24,9 @@ export function useCounterContract() {
     console.log('触发useCounterContract的client 回调打开合约');
     const contract = new Counter(
       // Address.parse('EQAMRK6UZ5QUyjIDoPn2WcrgXWBDODJLxkSbZCYl_ZMF6Ip-') //local
-      Address.parse('EQD1ddV64rYt8hb3uOFBfaXWHILSherUXPV994x6Kr1w5uY_') //new version
-      // Address.parse('EQBbfwY86Xk_K4B1YJorNDR8PGWL-UQt_ekqtXldd9vln27N')
+      // Address.parse('EQD1ddV64rYt8hb3uOFBfaXWHILSherUXPV994x6Kr1w5uY_') //new version onlion
+      // Address.parse('EQBbfwY86Xk_K4B1YJorNDR8PGWL-UQt_ekqtXldd9vln27N') // old version onlionv clear
+      Address.parse('kQBggSEk1WePQLjpp93IrB8lJPnD3n-jD--M6suu0wD4hY9O')
       
     );
     return client.open(contract) as OpenedContract<Counter>;
@@ -34,16 +35,25 @@ export function useCounterContract() {
   useEffect(() => {
     async function getValue() {
       if (!counterContract) return;
-      const activeRoomCounts = await counterContract.getGamesActiveCounts();
+      const respAll = await counterContract.getRespAll();
+      // const ra = new Map(respAll)
+      console.log('ra:', respAll);
+      const balance = respAll.balanceOf
+      const activeRoomCounts = respAll.gamesActiveCounts
+      const gameListActive = respAll.gameListActive
+      const sumbalance = respAll.balance
+
+      // const activeRoomCounts = await counterContract.getGamesActiveCounts();
       setActiveRoomCounts(activeRoomCounts.toString());
-      const gameListActive = await counterContract.getGameListActive();
+      // const gameListActive = await counterContract.getGameListActive();
       setGameListActive(gameListActive);
-      const balance = await counterContract.getBalanceOf();
+      // const balance = await counterContract.getBalanceOf();
       // console.log('balance:', balance);
       const bn = new Map(balance)
       setBalance(bn)
-      // console.log('bn:', bn);
-      const sumbalance = await counterContract.getBalance();
+
+      
+      // const sumbalance = await counterContract.getBalance();
       setSumBalance(sumbalance);
       console.log('触发useCounterContract的counterContract定时 回调');
 
@@ -55,7 +65,7 @@ export function useCounterContract() {
     }
     console.log('触发useCounterContract的counterContract回调');
     getValue();
-    const intervalId = setInterval(getValue, 15000); // 每5秒自动刷新数据
+    const intervalId = setInterval(getValue, 5000); // 每5秒自动刷新数据
     
     return () => {
       clearInterval(intervalId); // 在组件卸载时清除定时器
