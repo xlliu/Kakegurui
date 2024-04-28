@@ -78,9 +78,9 @@ function App() {
   const colors = ["default", "primary", "secondary", "success", "warning", "danger"];
   const [selectedColor, setSelectedColor] = React.useState("default");
 
-  // const map2 = new Map(Object.entries(init_datas_dict));
-  // let datas = map2.values()
-  let datas  = [];
+  const map2 = new Map(Object.entries(init_datas_dict));
+  let datas = map2.values()
+  // let datas  = [];
   let bn = ""
   const get_map = new Map(gameListActive);
   if (get_map.size != 0) {
@@ -264,9 +264,7 @@ function App() {
                   <button onClick={() => sendTx(sendWithdraw, "withdraw safe")}>
                     <BiMoneyWithdraw />
                   </button>
-
                 </div>
-
               </div>
 
 
