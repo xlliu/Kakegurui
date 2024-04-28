@@ -59,7 +59,7 @@ export function useCounterContract() {
     return () => {
       clearInterval(intervalId); // 在组件卸载时清除定时器
     };
-  }, [counterContract]);
+  }, []);
 
   // {
   //   value: toNano('0.05'),
