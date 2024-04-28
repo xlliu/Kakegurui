@@ -72,27 +72,25 @@ function App() {
   const [tonConnectUi] = useTonConnectUI();
   const userFriendlyAddress = useTonAddress();
 
-  console.log("useTonAddress!", userFriendlyAddress);
-
   const { resultByOne, activeRoomCounts, gameListActive, balance, address, sendTx, setBalance, sumBalance } = useCounterContract();
   const colors = ["default", "primary", "secondary", "success", "warning", "danger"];
   const [selectedColor, setSelectedColor] = React.useState("default");
 
-  // const map2 = new Map(Object.entries(init_datas_dict));
-  // let datas = map2.values()
-  let datas  = [];
+  const map2 = new Map(Object.entries(init_datas_dict));
+  let datas = map2.values()
+  // let datas  = [];
+
+  
   let bn = ""
   const get_map = new Map(gameListActive);
   if (get_map.size != 0) {
     let myObject = Object.fromEntries(get_map);
-    console.log('myObject:', myObject);
     const newMessage = {
       ...init_datas_dict,
       ...myObject // 修改 gameId
     };
     const map2 = new Map(Object.entries(newMessage));
     datas = map2.values()
-    console.log('datas:', datas);
   }
 
   if (wallet) {
@@ -199,16 +197,11 @@ function App() {
 
   // 定义一个函数用于更新父组件变量
   const updateJoinGameMessage = (newMessage: any) => {
-    console.log('1111!', newMessage);
     setJoinGameMessage(newMessage);
   };
   const [selected, setSelected] = React.useState(1n);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const handleRowClick = (selected: React.SetStateAction<bigint>) => {
-
-    console.log('Row clicked!', selected);
-
-
     setSelected(selected)
     const newMessage = {
       ...joinGameMessage,
