@@ -3,7 +3,6 @@ import {RadioGroup, Radio, cn,Textarea, Tabs, Tab, Card, CardBody, CardHeader} f
 import {Tooltip, Button} from "@nextui-org/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
-import { Tip } from "./Tip";
 import { useTranslation } from "react-i18next";
 export default function App(props) {
   const { t } = useTranslation();
@@ -14,7 +13,7 @@ export default function App(props) {
     {
       id: "1",
       label: t("Single Game"),
-      content: t("Play a game.")
+      content: t("Play a game, the winner will get the bonus, and if there is a draw, the bet amount after deducting handling fees and gas fees will be refunded.")
     },
     {
       id: "2",
