@@ -255,7 +255,7 @@ function App() {
                 </div>
 
               </div>
-              <div className='flex flex-col' >
+              {/* <div className='flex flex-col' >
                 <b>sumBalance</b>
                 <div className='flex flex-row items-center justify-between'>
                   <div >
@@ -265,7 +265,7 @@ function App() {
                     <BiMoneyWithdraw />
                   </button>
                 </div>
-              </div>
+              </div> */}
 
 
               <div>
