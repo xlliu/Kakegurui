@@ -281,7 +281,10 @@ function App() {
       <main className="dark text-foreground bg-background md:h-screen">
         <div className='container mx-auto space-y-4'>
           <div className='flex flex-col md:flex-row '>
-            <div className='md:w-2/3 rounded-sm p-3'>
+            <div className='md:w-1/3 rounded-sm p-1'>
+              <Top />
+            </div>
+            <div className='md:w-2/3 rounded-sm p-1'>
               <Card className="" radius="sm">
                 <CardHeader className="flex gap-3 bg-default-100">
                   <div className="flex flex-raw justify-between w-[100%]">
@@ -311,7 +314,7 @@ function App() {
                     <TableBody items={datas} emptyContent={"Waiting for the blockchain to return data."}>
                       {(item: { roomId: React.SetStateAction<bigint> }) => (
                         <TableRow key={item.roomId}>
-                          {(columnKey: any) => <TableCell onClick={() => handleRowClick(item.roomId)}>{renderCell(item, columnKey)}</TableCell>}
+                          {(columnKey: any) => <TableCell className='px-1' onClick={() => handleRowClick(item.roomId)}>{renderCell(item, columnKey)}</TableCell>}
                         </TableRow>
                       )}
 
@@ -328,9 +331,7 @@ function App() {
                 </CardFooter>
               </Card>
             </div>
-            <div className='md:w-1/3 rounded-sm p-3'>
-              <Top />
-            </div>
+            
           </div>
           {/* <ListGame />
       <DetailsGame /> */}
