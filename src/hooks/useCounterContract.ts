@@ -23,7 +23,9 @@ export function useCounterContract() {
     if (!client) return;
     console.log('触发useCounterContract的client 回调打开合约');
     const contract = new Counter(
-      Address.parse('EQAMRK6UZ5QUyjIDoPn2WcrgXWBDODJLxkSbZCYl_ZMF6Ip-')
+      // Address.parse('EQAMRK6UZ5QUyjIDoPn2WcrgXWBDODJLxkSbZCYl_ZMF6Ip-') //local
+      Address.parse('EQBbfwY86Xk_K4B1YJorNDR8PGWL-UQt_ekqtXldd9vln27N')
+      
     );
     return client.open(contract) as OpenedContract<Counter>;
   }, [client]);
@@ -52,7 +54,7 @@ export function useCounterContract() {
     }
     console.log('触发useCounterContract的counterContract回调');
     getValue();
-    const intervalId = setInterval(getValue, 60000); // 每5秒自动刷新数据
+    const intervalId = setInterval(getValue, 5000); // 每5秒自动刷新数据
     
     return () => {
       clearInterval(intervalId); // 在组件卸载时清除定时器
