@@ -17,7 +17,7 @@ import ChoiceMode from './ChoiceMode';
 import { ListGame } from "./ListGame";
 import Top from "./Top";
 import { AcmeLogo } from "./AcmeLogo";
-import { Tip } from "./Tip";
+import Tip from "./Tip";
 
 import { Address, toNano, fromNano } from '@ton/core';
 import { columns, init_datas, init_datas_dict } from "./data";
