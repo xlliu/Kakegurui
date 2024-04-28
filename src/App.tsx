@@ -61,7 +61,8 @@ const resMap = {
   "0": <AvatarIcon />, //空闲
 };
 
-const addr_args = { urlSafe: true, bounceable: false, testOnly: true }
+// const addr_args = { urlSafe: true, bounceable: false, testOnly: true };
+const addr_args = {urlSafe: true, bounceable: false, testOnly: false};
 
 function App() {
   const { t } = useTranslation();
