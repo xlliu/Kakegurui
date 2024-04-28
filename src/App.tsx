@@ -209,6 +209,12 @@ function App() {
     onOpen()
 
   };
+  const handleJoinClick = (sendAmount, joinGameMessage, onClose) => {
+
+    sendTx(sendAmount, joinGameMessage);
+    onClose();
+
+  };
 
   const showForm = () => {
     console.log('joinGameMessage!', joinGameMessage);
@@ -400,7 +406,7 @@ function App() {
                   </Button>
                   {wallet ? (
                     // <Button onClick={() => tonConnectUi.sendTransaction(tx)}>
-                    <Button onClick={() => sendTx(sendAmount, joinGameMessage)} color="primary">
+                    <Button onClick={() => handleJoinClick(sendAmount, joinGameMessage,onClose)} color="primary">
                       {get_map.get(selected) ? 
                         ((get_map.get(selected)!!.status == 2 || get_map.get(selected)!!.status == 3) ? t("Reset and Join Game"):t("Join Game"))
                         :t("Join Game")
@@ -418,7 +424,7 @@ function App() {
         </Modal>
       </main>
       <footer className='flex items-start justify-center dark text-foreground bg-background'>
-        <p>&copy; 2024. All rights reserved.</p>
+        <p>&copy; {t("2024. Kakegurui Built on the Ton blockchain.")}</p>
       </footer>
 
 

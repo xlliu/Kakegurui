@@ -14,7 +14,8 @@
     "CONFIDENTIAL": "机密",
     "Play a game.": "玩一局游戏，胜利者获得奖金，平局则退回扣除手续费和Gas费用后的投注金额",
     "Success": "已完成对局", 
-    "Tie": "和",
+    "Tie": "和局",
     "Waiting": "等待对手",
-    "Available": "房间可用"
+    "Available": "房间可用",
+    "2024. Kakegurui Built on the Ton blockchain.": "2024. 狂赌之渊构建在Ton区块链上"
 }
