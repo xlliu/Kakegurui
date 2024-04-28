@@ -176,7 +176,7 @@ function App() {
     gameId: BigInt(12345)
   };
 
-  const [bet, setBet] = React.useState(toNano('100'));
+  const [bet, setBet] = React.useState(toNano('1'));
 
   let sendAmount = {
     value: bet,
