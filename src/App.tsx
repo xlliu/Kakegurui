@@ -76,9 +76,9 @@ function App() {
   const colors = ["default", "primary", "secondary", "success", "warning", "danger"];
   const [selectedColor, setSelectedColor] = React.useState("default");
 
-  const map2 = new Map(Object.entries(init_datas_dict));
-  let datas = map2.values()
-  // let datas  = [];
+  // const map2 = new Map(Object.entries(init_datas_dict));
+  // let datas = map2.values()
+  let datas  = [];
 
   
   let bn = ""
