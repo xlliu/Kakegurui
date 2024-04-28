@@ -61,13 +61,8 @@ const resMap = {
   "0": <AvatarIcon />, //空闲
 };
 
-<<<<<<< HEAD
 // const addr_args = { urlSafe: true, bounceable: false, testOnly: true };
 const addr_args = {urlSafe: true, bounceable: false, testOnly: false};
-=======
-const addr_args = { urlSafe: true, bounceable: false, testOnly: true }
-// const addr_args = { urlSafe: true, bounceable: false, testOnly: false }
->>>>>>> dev
 
 function App() {
   const { t } = useTranslation();
@@ -182,7 +177,7 @@ function App() {
     gameId: BigInt(12345)
   };
 
-  const [bet, setBet] = React.useState(toNano('1'));
+  const [bet, setBet] = React.useState(toNano('100'));
 
   let sendAmount = {
     value: bet,
