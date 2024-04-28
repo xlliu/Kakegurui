@@ -37,7 +37,7 @@ export function useCounterContract() {
     async function getValue() {
       if (!counterContract) return;
       const respAll = await counterContract.getRespAll();
-      console.log('ra:', respAll);
+      // console.log('ra:', respAll);
       const balance = respAll.balanceOf
       const activeRoomCounts = respAll.gamesActiveCounts
       const gameListActive = respAll.gameListActive
