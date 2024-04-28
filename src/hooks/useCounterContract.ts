@@ -8,6 +8,7 @@ import { Address, Dictionary, OpenedContract, toNano } from '@ton/core';
 export function useCounterContract() {
   const client = useTonClient();
   const [activeRoomCounts, setActiveRoomCounts] = useState<null | String>();
+  const [gamesCounts, setGamesCounts] = useState<null | String>();
   const [gameListActive, setGameListActive] = useState<GameListActive>();
   const [resultByOne, setResultByOne] = useState<Game>();
 
@@ -26,8 +27,8 @@ export function useCounterContract() {
       // Address.parse('EQAMRK6UZ5QUyjIDoPn2WcrgXWBDODJLxkSbZCYl_ZMF6Ip-') //local
       // Address.parse('EQD1ddV64rYt8hb3uOFBfaXWHILSherUXPV994x6Kr1w5uY_') //new version onlion
       // Address.parse('EQBbfwY86Xk_K4B1YJorNDR8PGWL-UQt_ekqtXldd9vln27N') // old version onlionv clear
-      // Address.parse('kQBggSEk1WePQLjpp93IrB8lJPnD3n-jD--M6suu0wD4hY9O')
-      Address.parse('EQDyzmFMRbIzjsIsswsLabRByySbOrs8Kesv-X8eLNJGnPpU')
+      Address.parse('kQBggSEk1WePQLjpp93IrB8lJPnD3n-jD--M6suu0wD4hY9O')
+      // Address.parse('EQDyzmFMRbIzjsIsswsLabRByySbOrs8Kesv-X8eLNJGnPpU') //new version onlion
       
     );
     return client.open(contract) as OpenedContract<Counter>;
@@ -42,12 +43,14 @@ export function useCounterContract() {
       const activeRoomCounts = respAll.gamesActiveCounts
       const gameListActive = respAll.gameListActive
       const sumbalance = respAll.balance
+      const gamesCounts = respAll.gamesCounts
 
       setActiveRoomCounts(activeRoomCounts.toString());
       setGameListActive(gameListActive);
       const bn = new Map(balance)
       setBalance(bn)
       setSumBalance(sumbalance);
+      setGamesCounts(gamesCounts.toString())
     }
     console.log('触发Hook的回调');
     getValue();
@@ -69,7 +72,7 @@ export function useCounterContract() {
     balance: balance,
     sumBalance:sumBalance,
     address: counterContract?.address.toString(),
-    setBalance: setBalance,
+    gamesCounts: gamesCounts,
     sendTx: sendTx
   };
 }

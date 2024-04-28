@@ -72,7 +72,7 @@ function App() {
   const [tonConnectUi] = useTonConnectUI();
   const userFriendlyAddress = useTonAddress();
 
-  const { resultByOne, activeRoomCounts, gameListActive, balance, address, sendTx, setBalance, sumBalance } = useCounterContract();
+  const { resultByOne, activeRoomCounts, gameListActive, balance, address, sendTx, gamesCounts, sumBalance } = useCounterContract();
   const colors = ["default", "primary", "secondary", "success", "warning", "danger"];
   const [selectedColor, setSelectedColor] = React.useState("default");
 
@@ -280,8 +280,11 @@ function App() {
                 <CardHeader className="flex gap-3 bg-default-100">
                   <div className="flex flex-raw justify-between w-[100%]">
                     <div className="text-md flex items-end px-1 ">{t("Active Room")} {activeRoomCounts}</div>
-                    <div className="text-small text-default-500 flex items-center px-1 ">
+                    {/* <div className="text-small text-default-500 flex items-center px-1 ">
                       <Tip />
+                    </div> */}
+                    <div className="text-small text-default-500 flex items-center px-1 ">
+                      {t("Match completed")} {gamesCounts}
                     </div>
                   </div>
                 </CardHeader>
