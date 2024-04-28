@@ -1,6 +1,6 @@
 {
 	"Kakegurui": "狂赌之渊",
-    "Withdraw": "可提取",
+    "Withdraw": "提取",
     "Active Room":"活跃的房间",
     "Creat Room":"创建房间",
     "Room Number":"房间号",
@@ -17,5 +17,9 @@
     "Tie": "和局",
     "Waiting": "等待对手",
     "Available": "房间可用",
-    "2024. Kakegurui Built on the Ton blockchain.": "2024. 狂赌之渊构建在Ton区块链上"
+    "2024. Kakegurui Built on the Ton blockchain.": "2024. 狂赌之渊构建在Ton区块链上",
+    "1. This game is completely deployed on the Ton blockchain. The data on the chain is safe and transparent, ensuring game fairness.": "1、本游戏完全部署在Ton区块链上。 链上数据安全透明，保证游戏公平。",
+    "2. the delay in Ton block confirmation speed, the normal delay is about 30 seconds. Please wait for the list data to be refreshed after joining the game. Please do not join the game again.": "2、Ton区块确认速度的延迟，正常延迟在30秒左右。 加入游戏后请等待列表数据刷新。 请不要再次加入游戏。",
+    "3. the high cost of blockchain data storage, after a single game is completed, the game results will be cached in the list until new players join the game, the room will be automatically reset and a new game will be started.":"3、区块链数据存储成本较高，单局游戏结束后，游戏结果会缓存在列表中，直到有新玩家加入游戏，房间才会自动重置，开始新的游戏。",
+    "Tip": "提示"
 }

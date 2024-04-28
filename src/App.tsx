@@ -15,7 +15,7 @@ import ChoiceAmount from './ChoiceAmount';
 import ChoiceMode from './ChoiceMode';
 // import ChoiceRSP  from './ChoiceRSP';
 import { ListGame } from "./ListGame";
-import { Top } from "./Top";
+import Top from "./Top";
 import { AcmeLogo } from "./AcmeLogo";
 import { Tip } from "./Tip";
 
@@ -151,10 +151,18 @@ function App() {
         );
       case "count":
         return (
-          <div className="flex flex-col">
-            <p className="text-bold text-xs capitalize">{row.win_addr ? row.win_addr.toString(addr_args).slice(-4) : ""} </p>
-            {/* <p className="text-bold text-sm capitalize text-default-400">Winer</p> */}
-          </div>
+          // <div className="flex flex-col">
+          //   <p className="text-bold text-xs capitalize">{row.win_addr ? row.win_addr.toString(addr_args).slice(-4) : ""} </p>
+          //   {/* <p className="text-bold text-sm capitalize text-default-400">Winer</p> */}
+          // </div>
+          <Avatar
+            name={row.win_addr ? row.win_addr.toString(addr_args).slice(-4) : ""}
+            isDisabled={row.win_addr ? false : true}
+            isBordered ={row.win_addr ? true : false}
+            // icon={row.player2 ? resMap[(row.player2).choice.toString()] : <AvatarIcon />}
+            radius="sm"
+            color={row.win_addr ? (row.win_addr.toString(addr_args) == userFriendlyAddress ? "warning" : "default") : "default"}
+          />
         );
       default:
         return cellValue;
@@ -313,9 +321,9 @@ function App() {
                 <CardFooter className="flex flex-raw justify-end">
                   <i className="fa-solid fa-user"></i>
                   <i className="z-index fas fa-coffee"></i>
-                  <Button color="primary" onPress={handleRowClick} className="rounded-sm px-3">
+                  {/* <Button color="primary" onPress={handleRowClick} className="rounded-sm px-3">
                   {t("Creat Room")}
-                  </Button>
+                  </Button> */}
                 </CardFooter>
               </Card>
             </div>
@@ -401,9 +409,9 @@ function App() {
                   >
                     sendTx
                   </Button> */}
-                  <Button color="primary" onPress={showForm}>
+                  {/* <Button color="primary" onPress={showForm}>
                     {t("showForm")}
-                  </Button>
+                  </Button> */}
                   {wallet ? (
                     // <Button onClick={() => tonConnectUi.sendTransaction(tx)}>
                     <Button onClick={() => handleJoinClick(sendAmount, joinGameMessage,onClose)} color="primary">
@@ -414,7 +422,7 @@ function App() {
                     </Button>
                   ) : (
                     <Button onClick={() => tonConnectUi.openModal()}>
-                      t(Connect Wallet)
+                      {t("Connect Wallet")}
                     </Button>
                   )}
                 </ModalFooter>
