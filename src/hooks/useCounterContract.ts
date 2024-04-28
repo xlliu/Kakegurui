@@ -24,6 +24,7 @@ export function useCounterContract() {
     console.log('触发useCounterContract的client 回调打开合约');
     const contract = new Counter(
       // Address.parse('EQAMRK6UZ5QUyjIDoPn2WcrgXWBDODJLxkSbZCYl_ZMF6Ip-') //local
+      // Address.parse('EQD1ddV64rYt8hb3uOFBfaXWHILSherUXPV994x6Kr1w5uY_') //new version
       Address.parse('EQBbfwY86Xk_K4B1YJorNDR8PGWL-UQt_ekqtXldd9vln27N')
       
     );
