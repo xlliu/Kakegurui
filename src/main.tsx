@@ -7,7 +7,7 @@ import { THEME, TonConnectUIProvider } from '@tonconnect/ui-react';
 import "./react-i18next/i18n";
 
 // const manifestUrl = 'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json';
-const manifestUrl = 'https://xlliu.github.com/Kakegurui/tonconnect-manifest.json'
+const manifestUrl = 'https://jeerclub.xyz/tonconnect-manifest.json'
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	// <TonConnectUIProvider manifestUrl={manifestUrl}>
 	<TonConnectUIProvider
