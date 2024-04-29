@@ -36,7 +36,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 			]
 		}}
 		actionsConfiguration={{
-			twaReturnUrl: 'https://t.me/KKGurui_bot'
+			twaReturnUrl: 'https://t.me/KKGurui_bot/KKG'
 		}}
 	>
 		<NextUIProvider>
