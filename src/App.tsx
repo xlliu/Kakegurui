@@ -166,7 +166,7 @@ function App() {
       default:
         return cellValue;
     }
-  }, [gameListActive]);
+  }, [datas]);
 
 
 
