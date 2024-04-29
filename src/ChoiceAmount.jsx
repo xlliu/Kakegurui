@@ -3,48 +3,51 @@ import {RadioGroup, Radio, cn, Tabs, Tab, Card, CardBody, CardHeader} from "@nex
 import { Address, toNano, fromNano } from '@ton/core';
 
 export default function App(props) {
-  const { joinGameMessage, updateJoinGameMessage,setBet } = props;
+  const { joinGameMessage, updateJoinGameMessage,bet, setBet } = props;
   let tabs = [
     {
-      id: "100",
-      label: "100",
+      id: toNano("100"),
+      label: "100 Ton",
     },
     {
-      id: "300",
-      label: "300",
+      id: toNano("300"),
+      label: "300 Ton",
     },
     {
-      id: "500",
+      id: toNano("500"),
       label: "500",
     },
     {
-      id: "3000",
+      id: toNano("1000"),
+      label: "1k",
+    },
+    {
+      id: toNano("3000"),
       label: "3k",
     },
     {
-      id: "10000",
+      id: toNano("10000"),
       label: "10k",
     },
     {
-      id: "50000",
+      id: toNano("50000"),
       label: "50k",
     },
     {
-      id: "100000",
+      id: toNano("100000"),
       label: "100k",
     },
   ];
 
-  const [selected, setSelected] = React.useState("100");
+  const [selected, setSelected] = React.useState(bet.toString());
   const handleClick = (selected) => {
-    console.log('mode选中的值为：', selected);
     setSelected(selected)
     const newMessage = {
       ...joinGameMessage,
-      // betAmount: BigInt(parseInt(selected)) // 修改 gameId
-      betAmount: toNano(selected)
+      betAmount: BigInt(selected)
     };
-    setBet(toNano(selected))
+    console.log("newMessage", newMessage);
+    setBet(selected)
     updateJoinGameMessage(newMessage);
   };
 
@@ -55,12 +58,10 @@ export default function App(props) {
       <Tabs 
       aria-label="Dynamic tabs" 
       items={tabs} 
-      // size="sm"
       selectedKey={selected}
       onSelectionChange={handleClick}
+      defaultSelectedKey={selected}
       color="warning"
-      // radius="sm"
-
       >
         {(item) => (
           <Tab key={item.id} title={item.label} />

@@ -175,8 +175,8 @@ function App() {
     gameId: BigInt(12345)
   };
 
-  const [bet, setBet] = React.useState(toNano('100'));
-
+  const [bet, setBet] = React.useState();
+  
   let sendAmount = {
     value: bet,
   }
@@ -194,18 +194,19 @@ function App() {
   }
 
   const [joinGameMessage, setJoinGameMessage] = React.useState(jg);
-
   // 定义一个函数用于更新父组件变量
   const updateJoinGameMessage = (newMessage: any) => {
     setJoinGameMessage(newMessage);
   };
   const [selected, setSelected] = React.useState(1n);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const handleRowClick = (selected: React.SetStateAction<bigint>) => {
-    setSelected(selected)
+  const handleRowClick = (row) => {
+    setBet(row.currentBetAmount);
+    setSelected(row.roomId);
     const newMessage = {
       ...joinGameMessage,
-      gameId: BigInt(selected) // 修改 gameId
+      gameId: BigInt(row.roomId), // 修改 gameId
+      betAmount: BigInt(row.currentBetAmount)
     };
     updateJoinGameMessage(newMessage);
     onOpen()
@@ -308,7 +309,7 @@ function App() {
                     <TableBody items={datas} emptyContent={"Waiting for the blockchain to return data."}>
                       {(item: { roomId: React.SetStateAction<bigint> }) => (
                         <TableRow key={item.roomId}>
-                          {(columnKey: any) => <TableCell className='px-1' onClick={() => handleRowClick(item.roomId)}>{renderCell(item, columnKey)}</TableCell>}
+                          {(columnKey: any) => <TableCell className='px-1' onClick={() => handleRowClick(item)}>{renderCell(item, columnKey)}</TableCell>}
                         </TableRow>
                       )}
 
@@ -368,7 +369,7 @@ function App() {
 
                   </div>
                   <div className="flex-2 w-full">
-                    <ChoiceAmount joinGameMessage={joinGameMessage} updateJoinGameMessage={updateJoinGameMessage} setBet={setBet} />
+                    <ChoiceAmount joinGameMessage={joinGameMessage} updateJoinGameMessage={updateJoinGameMessage} bet={bet} setBet={setBet} />
 
                   </div>
                   <div className="flex-3 w-full " >
