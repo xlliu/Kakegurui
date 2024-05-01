@@ -1,0 +1,45 @@
+
+import { Card, CardHeader, CardBody, CardFooter, Divider, Image, Link } from "@nextui-org/react";
+import { Textarea } from "@nextui-org/react";
+import { useTranslation } from "react-i18next";
+import { useEffect } from 'react';
+
+
+
+export default function Tg(props) {
+  const { t } = useTranslation();
+  useEffect(() => {
+    async function getValue() {
+      const sc = document.getElementById('telegram-discussion-jeerclub-3-1');
+      const view = document.getElementById('content-view-tg');
+      view!!.appendChild(sc!!);
+      
+    }
+    getValue()
+    // const intervalId = setInterval(getValue, 5000); // 每5秒自动刷新数据
+    // return () => {
+    //   // view!!.removeChild(sc!!);
+    //   clearInterval(intervalId); // 在组件卸载时清除定时器
+    // }
+  }, []);
+
+  return (
+    <Card className="min-w-[200px] min-h-[500px]" radius="sm">
+      <div id="view-tg">
+        {/* <script 
+          type="text/javascript"
+          async 
+          src="https://telegram.org/js/telegram-widget.js?22" 
+          data-telegram-discussion="jeerclub/3" 
+          data-comments-limit="5" 
+          data-height="500"  
+          data-colorful="1" 
+          data-dark="1" ></script> */}
+      </div>
+      
+      <div id="content-view-tg">
+
+      </div>
+    </Card>
+  );
+}

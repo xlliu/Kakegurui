@@ -18,13 +18,6 @@ export default function Top(props) {
       <Divider />
       <CardBody >
         <div className="space-y-3 ">
-          {/* <div className="px-1 h-6 rounded-sm bg-default-100 flex flew-raw justify-between"> */}
-          {/* <div className="px-1  rounded-sm bg-default-100 flex flew-raw justify-between">
-      <div className="">1. This game is completely deployed on the Ton blockchain. The data on the chain is safe and transparent, ensuring game fairness.</div>
-      <p className="">19</p>
-    </div>
-    <div className="px-1  rounded-sm bg-default-100 ">2. Due to the delay in Ton block confirmation speed, the normal delay is about 30 seconds. Please wait for the list data to be refreshed after joining the game. Please do not join the game again.</div>
-    <div className="px-1  rounded-sm bg-default-100 ">3. Due to the high cost of blockchain data storage, after a single game is completed, the game results will be cached in the list until new players join the game, the room will be automatically reset and a new game will be started.</div> */}
           <Textarea
             isDisabled
             label=""
@@ -55,12 +48,10 @@ export default function Top(props) {
       <CardFooter>
         <Link
           isExternal
-          isBlock
-          isDisabled
-          color="foreground"
-          href=""
+          showAnchorIcon
+          href="https://t.me/jeerclub/4"
         >
-          Be wild; that is how to clear the river.
+          Playing By Telegram.
         </Link>
       </CardFooter>
     </Card>

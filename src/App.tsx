@@ -1,39 +1,30 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import '@twa-dev/sdk';
 import React from 'react'
 
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Input, Spacer, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu } from "@nextui-org/react";
-// import { TonConnectButton, useTonWallet, useTonConnectUI } from '@tonconnect/ui-react';
+import { Navbar, NavbarBrand, NavbarContent} from "@nextui-org/react";
 import { TonConnectButton, useTonConnectUI, useTonWallet, useTonAddress } from "@tonconnect/ui-react";
-import { useTonConnect } from './hooks/useTonConnect';
 import { useCounterContract } from './hooks/useCounterContract';
 
-import ChoiceRSP from './ChoiceRSP';
-import ChoiceAmount from './ChoiceAmount';
-import ChoiceMode from './ChoiceMode';
-// import ChoiceRSP  from './ChoiceRSP';
-import { ListGame } from "./ListGame";
+import ChoiceRSP from './ChoiceRSP.jsx';
+import ChoiceAmount from './ChoiceAmount.jsx';
+import ChoiceMode from './ChoiceMode.jsx';
 import Top from "./Top";
+import Tg from "./Tg";
 import { AcmeLogo } from "./AcmeLogo";
-import Tip from "./Tip";
 
-import { Address, toNano, fromNano } from '@ton/core';
-import { columns, init_datas, init_datas_dict } from "./data";
+import { toNano, fromNano } from '@ton/core';
+import { columns, init_datas_dict } from "./data";
 import './App.css'
 
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, getKeyValue, Radio, RadioGroup } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip } from "@nextui-org/react";
 
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox, User } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure,  User } from "@nextui-org/react";
 
-import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
-import { JoinGame, Player, StopGame } from './contracts/kkg';
+import { Card, CardHeader, CardBody, CardFooter, Divider } from "@nextui-org/react";
+import { JoinGame } from './contracts/kkg';
 
 import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/react";
 import { FaRegHandRock, FaRegHandPaper, FaRegHandScissors } from 'react-icons/fa';
 import { BiMoneyWithdraw } from "react-icons/bi";
-import { Progress } from "@nextui-org/react";
 import '@twa-dev/sdk';
 
 
@@ -66,15 +57,11 @@ const addr_args = {urlSafe: true, bounceable: false, testOnly: false};
 
 function App() {
   const { t } = useTranslation();
-  // const [count, setCount] = useState(0)
-  const { connected } = useTonConnect();
   const wallet = useTonWallet();
   const [tonConnectUi] = useTonConnectUI();
   const userFriendlyAddress = useTonAddress();
 
-  const { resultByOne, activeRoomCounts, gameListActive, balance, address, sendTx, gamesCounts, sumBalance } = useCounterContract();
-  const colors = ["default", "primary", "secondary", "success", "warning", "danger"];
-  const [selectedColor, setSelectedColor] = React.useState("default");
+  const { activeRoomCounts, gameListActive, balance, sendTx, gamesCounts, sumBalance } = useCounterContract();
 
   // const map2 = new Map(Object.entries(init_datas_dict));
   // let datas = map2.values()
@@ -167,13 +154,6 @@ function App() {
         return cellValue;
     }
   }, [datas]);
-
-
-
-  const stopGameMessage: StopGame = {
-    $$type: 'StopGame',
-    gameId: BigInt(12345)
-  };
 
   const [bet, setBet] = React.useState();
   
@@ -326,7 +306,9 @@ function App() {
                 </CardFooter>
               </Card>
             </div>
-            
+            <div className='md:w-1/3 rounded-sm p-1'>
+              <Tg />
+            </div>
           </div>
           {/* <ListGame />
       <DetailsGame /> */}
