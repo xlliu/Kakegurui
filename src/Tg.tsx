@@ -32,7 +32,7 @@ export default function Tg(props) {
   }, []);
 
   return (
-    <Card className="min-w-[200px] min-h-[500px]" radius="sm">
+    <Card className="min-w-[200px] min-h-[500px] hidden sm:block" radius="sm">
       <div id="view-tg">
         {/* <script 
           type="text/javascript"
