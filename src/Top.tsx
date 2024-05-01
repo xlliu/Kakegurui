@@ -49,7 +49,7 @@ export default function Top(props) {
         <Link
           isExternal
           showAnchorIcon
-          href="https://t.me/jeerclub/4"
+          href="https://t.me/jeerclub"
         >
           Playing By Telegram.
         </Link>

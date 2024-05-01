@@ -33,7 +33,7 @@ export default function Tg(props) {
    
     if (window.matchMedia('(min-width: 768px)').matches) {
       getValue()
-      console.log('按钮被点击了');
+      // console.log('按钮被点击了');
     }
   }, []);
 
