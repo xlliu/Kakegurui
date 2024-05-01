@@ -10,10 +10,18 @@ export default function Tg(props) {
   const { t } = useTranslation();
   useEffect(() => {
     async function getValue() {
-      const sc = document.getElementById('telegram-discussion-jeerclub-3-1');
+      // const sc = document.getElementById('telegram-discussion-jeerclub-3-1');
       const view = document.getElementById('content-view-tg');
-      view!!.appendChild(sc!!);
       
+      const myScript = document.createElement("script");
+      myScript.src = "https://telegram.org/js/telegram-widget.js?22";
+      myScript.type = "text/javascript";
+      myScript.setAttribute('data-telegram-discussion',"jeerclub/3");
+      myScript.setAttribute('data-comments-limit',"5" );
+      myScript.setAttribute('data-height',"700" );
+      myScript.setAttribute('data-colorful',"1" );
+      myScript.setAttribute('data-dark',"1" );
+      view!!.appendChild(myScript);
     }
     getValue()
     // const intervalId = setInterval(getValue, 5000); // 每5秒自动刷新数据
@@ -28,7 +36,7 @@ export default function Tg(props) {
       <div id="view-tg">
         {/* <script 
           type="text/javascript"
-          async 
+          // async 
           src="https://telegram.org/js/telegram-widget.js?22" 
           data-telegram-discussion="jeerclub/3" 
           data-comments-limit="5" 
