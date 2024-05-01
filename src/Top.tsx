@@ -31,7 +31,7 @@ export default function Top(props) {
             label=""
             labelPlacement="outside"
             // placeholder="Enter your description"
-            defaultValue={t("2. the delay in Ton block confirmation speed, the normal delay is about 30 seconds. Please wait for the list data to be refreshed after joining the game. Please do not join the game again.")}
+            defaultValue={t("2. The delay in Ton block confirmation speed, the normal delay is about 30 seconds. Please wait for the list data to be refreshed after joining the game. Please do not join the game again.")}
             className="max-w"
           />
           <Textarea
@@ -39,7 +39,7 @@ export default function Top(props) {
             label=""
             labelPlacement="outside"
             // placeholder="Enter your description"
-            defaultValue={t("3. the high cost of blockchain data storage, after a single game is completed, the game results will be cached in the list until new players join the game, the room will be automatically reset and a new game will be started.")}
+            defaultValue={t("3. The high cost of blockchain data storage, after a single game is completed, the game results will be cached in the list until new players join the game, the room will be automatically reset and a new game will be started.")}
             className="max-w"
           />
         </div>
