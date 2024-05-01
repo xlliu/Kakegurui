@@ -16,6 +16,7 @@ export default function Tg(props) {
       const myScript = document.createElement("script");
       myScript.src = "https://telegram.org/js/telegram-widget.js?22";
       myScript.type = "text/javascript";
+      myScript.async = true
       myScript.setAttribute('data-telegram-discussion',"jeerclub/3");
       myScript.setAttribute('data-comments-limit',"5" );
       myScript.setAttribute('data-height',"700" );
