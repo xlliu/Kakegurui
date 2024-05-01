@@ -24,12 +24,17 @@ export default function Tg(props) {
       myScript.setAttribute('data-dark',"1" );
       view!!.appendChild(myScript);
     }
-    setTimeout(getValue, 3000); // 每5秒自动刷新数据
+    // setTimeout(getValue, 3000); // 每5秒自动刷新数据
     // const intervalId = setInterval(getValue, 5000); // 每5秒自动刷新数据
     // return () => {
     //   // view!!.removeChild(sc!!);
     //   clearInterval(intervalId); // 在组件卸载时清除定时器
     // }
+   
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      getValue()
+      console.log('按钮被点击了');
+    }
   }, []);
 
   return (
