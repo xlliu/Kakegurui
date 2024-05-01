@@ -24,7 +24,7 @@ export default function Tg(props) {
       myScript.setAttribute('data-dark',"1" );
       view!!.appendChild(myScript);
     }
-    getValue()
+    setTimeout(getValue, 3000); // 每5秒自动刷新数据
     // const intervalId = setInterval(getValue, 5000); // 每5秒自动刷新数据
     // return () => {
     //   // view!!.removeChild(sc!!);
