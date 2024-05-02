@@ -23,5 +23,7 @@
     "3. The high cost of blockchain data storage, after a single game is completed, the game results will be cached in the list until new players join the game, the room will be automatically reset and a new game will be started.":"3、区块链数据存储成本较高，单局游戏结束后，游戏结果会缓存在列表中，直到有新玩家加入游戏，房间才会自动重置，开始新的游戏。",
     "Tip": "提示",
     "Game Introduction": "游戏简介",
-    "Match completed": "已完成对局"
+    "Match completed": "已完成对局",
+    "Leave a clue in Telegram": "在Telegram中留下线索",
+    "Playing By Telegram.": "在Telegram中进行游戏"
 }

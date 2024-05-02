@@ -17,7 +17,7 @@ export default function Tg(props) {
       myScript.async = true
       myScript.setAttribute('data-telegram-discussion',"jeerclub/3");
       myScript.setAttribute('data-comments-limit',"5" );
-      myScript.setAttribute('data-height',"700" );
+      myScript.setAttribute('data-height',"500" );
       myScript.setAttribute('data-colorful',"1" );
       myScript.setAttribute('data-dark',"1" );
       view!!.appendChild(myScript);
@@ -30,8 +30,17 @@ export default function Tg(props) {
   return (
     <Card className="min-w-[200px] min-h-[500px] hidden md:block" radius="sm">
       <div id="content-view-tg">
-
       </div>
+      <Divider />
+      <CardFooter className="flex flex-raw justify-end">
+        <Link
+          isExternal
+          showAnchorIcon
+          href="https://t.me/jeerclub"
+        >
+          {t("Leave a clue in Telegram")}
+        </Link>
+      </CardFooter>
     </Card>
   );
 }

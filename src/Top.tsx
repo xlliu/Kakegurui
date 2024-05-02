@@ -45,13 +45,13 @@ export default function Top(props) {
         </div>
       </CardBody>
       <Divider />
-      <CardFooter>
+      <CardFooter className="flex flex-raw justify-end">
         <Link
           isExternal
           showAnchorIcon
           href="https://t.me/jeerclub"
         >
-          Playing By Telegram.
+          {t("Playing By Telegram.")}
         </Link>
       </CardFooter>
     </Card>
