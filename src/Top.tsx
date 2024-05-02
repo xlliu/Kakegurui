@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 export default function Top(props) {
   const { t } = useTranslation();
   return (
-    <Card className="min-w-[200px]" radius="sm">
+    <Card className="min-w-[200px] font-zqh" radius="sm">
       <CardHeader className="flex gap-3 bg-default-100">
         <div className="flex flex-raw justify-between w-[100%]">
           <div className="text-md flex items-end px-1 ">{t("Tip")}</div>

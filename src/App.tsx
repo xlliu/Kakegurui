@@ -205,19 +205,19 @@ function App() {
   };
   return (
     <>
-      <header className="mx-auto dark text-foreground bg-background">
-        <div className="flex items-start justify-between">
+      <header className="mx-auto dark text-foreground bg-background font-zqh">
+        <div className="flex items-start justify-between ">
           <Navbar isBordered maxWidth="2xl" className="flex items-start ">
             <NavbarContent justify="start" >
               <NavbarBrand className="mr-4">
                 <AcmeLogo />
-                <p className="hidden sm:block font-bold text-inherit">{t("Kakegurui")}</p>
+                <p  className="hidden sm:block text-3xl text-inherit ">{t("Kakegurui")}</p>
               </NavbarBrand>
             </NavbarContent>
             <NavbarContent as="div" className="items-center" justify="end">
 
               <div className='flex flex-col' >
-                <p className='text-xs font-bold'>{t("Withdraw")}</p>
+                <p className='text-base '>{t("Withdraw")}</p>
                 <div className='flex flex-row items-center justify-between'>
                   <div >
                     {bn != null ? fromNano(bn) : '0'}
@@ -250,7 +250,7 @@ function App() {
         </div>
       </header>
 
-      <main className="dark text-foreground bg-background md:h-screen">
+      <main className="dark text-foreground bg-background md:h-screen font-zqh">
         <div className='container mx-auto space-y-4'>
           <div className='flex flex-col md:flex-row '>
             <div className='md:w-1/3 rounded-sm p-1'>
@@ -337,7 +337,7 @@ function App() {
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}
-          className='dark text-foreground bg-background'
+          className='dark text-foreground bg-background font-zqh'
           scrollBehavior="inside"
           size='xl'
         >
@@ -410,7 +410,7 @@ function App() {
           </ModalContent>
         </Modal>
       </main>
-      <footer className='flex items-start justify-center dark text-foreground bg-background'>
+      <footer className='flex items-start justify-center dark text-foreground bg-background font-zqh '>
         <p>&copy; {t("2024. Kakegurui Built on the Ton blockchain.")}</p>
       </footer>
 
