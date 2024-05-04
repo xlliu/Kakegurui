@@ -54,10 +54,10 @@ const resMap = {
 };
 
 const resMapS = {
-  "3": "📰", //完成
-  "2": "✂️", //平局
-  "1": "🗿", //等待对手
-  "0": "❔", //空闲
+  "3": "📰", 
+  "2": "✂️", 
+  "1": "🗿", 
+  "0": "❔", 
 };
 
 // const addr_args = { urlSafe: true, bounceable: false, testOnly: true };
@@ -96,6 +96,7 @@ function App() {
       const newKey = key.toString(addr_args);
       // 将转换后的键值对添加到新的 Map 中
       newMap.set(newKey, value);
+      // console.log(newKey, value);
     });
     bn = newMap.get(userFriendlyAddress);
   }

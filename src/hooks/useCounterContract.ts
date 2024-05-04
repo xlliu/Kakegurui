@@ -28,7 +28,9 @@ export function useCounterContract() {
       // Address.parse('EQD1ddV64rYt8hb3uOFBfaXWHILSherUXPV994x6Kr1w5uY_') //new version onlion
       // Address.parse('EQBbfwY86Xk_K4B1YJorNDR8PGWL-UQt_ekqtXldd9vln27N') // old version onlionv clear
       // Address.parse('kQBggSEk1WePQLjpp93IrB8lJPnD3n-jD--M6suu0wD4hY9O') //dev
-      Address.parse('EQDyzmFMRbIzjsIsswsLabRByySbOrs8Kesv-X8eLNJGnPpU') //new version onlion
+      // Address.parse('EQDyzmFMRbIzjsIsswsLabRByySbOrs8Kesv-X8eLNJGnPpU') 
+      Address.parse('EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc') //new version onlion
+      
       
     );
     return client.open(contract) as OpenedContract<Counter>;
