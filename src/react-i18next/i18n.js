@@ -15,6 +15,7 @@ i18n
 		lng: navigator.language,
 		// lng: "en",
 		debug: false,
+		preload: ['en', 'zh'],
 		interpolation: {
 			escapeValue: false, // not needed for react as it escapes by default
 		}

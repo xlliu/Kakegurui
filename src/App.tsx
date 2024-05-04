@@ -10,6 +10,7 @@ import ChoiceMode from './ChoiceMode.jsx';
 import Top from "./Top";
 import Tg from "./Tg";
 import { AcmeLogo } from "./AcmeLogo";
+import {CircularProgress} from "@nextui-org/react";
 
 import { toNano, fromNano } from '@ton/core';
 import { columns, init_datas_dict } from "./data";
@@ -50,6 +51,13 @@ const resMap = {
   "2": <FaRegHandScissors />, //平局
   "1": <FaRegHandRock />, //等待对手
   "0": <AvatarIcon />, //空闲
+};
+
+const resMapS = {
+  "3": "📰", //完成
+  "2": "✂️", //平局
+  "1": "🗿", //等待对手
+  "0": "❔", //空闲
 };
 
 // const addr_args = { urlSafe: true, bounceable: false, testOnly: true };
@@ -95,6 +103,8 @@ function App() {
 
 
   const renderCell = React.useCallback((row, columnKey) => {
+    // loading.onClose();
+    console.log('refush data')
     const cellValue = row[columnKey];
     switch (columnKey) {
       case "currentBetAmount":
@@ -111,16 +121,18 @@ function App() {
         return (
           <AvatarGroup isBordered>
             <Avatar
+              name={row.player1 ? resMapS[(row.player1).choice.toString()] : ''}
               isDisabled={row.player1 ? false : true}
               isBordered ={row.player1 ? true : false}
-              icon={row.player1 ? resMap[(row.player1).choice.toString()] : <AvatarIcon />}
+              // icon={<AvatarIcon />}
               radius="sm"
               color={row.player1 ? (row.player1.addr.toString(addr_args) == userFriendlyAddress ? "warning" : "default") : "default"}
             />
             <Avatar
+              name={row.player2 ? resMapS[(row.player2).choice.toString()] : ''}
               isDisabled={row.player2 ? false : true}
               isBordered ={row.player2 ? true : false}
-              icon={row.player2 ? resMap[(row.player2).choice.toString()] : <AvatarIcon />}
+              // icon={row.player2 ? resMap[(row.player2).choice.toString()] : <AvatarIcon />}
               radius="sm"
               color={row.player2 ? (row.player2.addr.toString(addr_args) == userFriendlyAddress ? "warning" : "default") : "default"}
             />
@@ -180,6 +192,7 @@ function App() {
   };
   const [selected, setSelected] = React.useState(1n);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const loading = useDisclosure();
   const handleRowClick = (row) => {
     setBet(row.currentBetAmount);
     setSelected(row.roomId);
@@ -190,13 +203,17 @@ function App() {
     };
     updateJoinGameMessage(newMessage);
     onOpen()
-
+    
   };
-  const handleJoinClick = (sendAmount, joinGameMessage, onClose) => {
+  // const [loadingValue, setloadingValue] = React.useState(0);
 
+  // console.log("xxxx",loading.isOpen)
+
+  const handleJoinClick = (sendAmount, joinGameMessage, onClose) => {
+    
     sendTx(sendAmount, joinGameMessage);
     onClose();
-
+    loading.onOpen();
   };
 
   const showForm = () => {
@@ -217,7 +234,7 @@ function App() {
             <NavbarContent as="div" className="items-center" justify="end">
 
               <div className='flex flex-col' >
-                <p className='text-base '>{t("Withdraw")}</p>
+                <p className='text-sm '>{t("Withdraw")}</p>
                 <div className='flex flex-row items-center justify-between'>
                   <div >
                     {bn != null ? fromNano(bn) : '0'}
@@ -254,7 +271,7 @@ function App() {
         <div className='container mx-auto space-y-4'>
           <div className='flex flex-col md:flex-row '>
             <div className='md:w-1/3 rounded-sm p-1'>
-              <Top />
+              <Top t = {t} />
             </div>
             <div className='md:w-2/3 rounded-sm p-1'>
               <Card className="" radius="sm">
@@ -307,7 +324,7 @@ function App() {
               </Card>
             </div>
             <div className='md:w-1/3 rounded-sm p-1'>
-              <Tg />
+              <Tg t = {t} />
             </div>
           </div>
           {/* <ListGame />
@@ -334,6 +351,27 @@ function App() {
           sendTx
         </a> */}
         </div>
+        <Modal 
+          isOpen={loading.isOpen} 
+          onOpenChange={loading.onOpenChange} 
+          className='dark text-foreground bg-background font-zqh'
+          >
+          <ModalContent>
+            {() => (
+              <>
+                <ModalBody className="flex flex-row  items-center justify-center">
+                <CircularProgress 
+                  label="等待区块确认中，请等待页面更新后继续操作..." 
+                  size="lg"
+                  color="warning"
+                  showValueLabel={true}
+                  />
+                </ModalBody>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+        
         <Modal
           isOpen={isOpen}
           onOpenChange={onOpenChange}

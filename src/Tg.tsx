@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 
 export default function Tg(props) {
-  const { t } = useTranslation();
+  const { t } = props;
   useEffect(() => {
     async function getValue() {
       const view = document.getElementById('content-view-tg');

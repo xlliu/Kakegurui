@@ -46,10 +46,19 @@ export default function App(props) {
         onValueChange={handleClick}
         value={selected}
       >
-        <CustomRadio value="1" className="">
+        <CustomRadio value="1" >
           {/* Rock */}
-          <FontAwesomeIcon icon={faHandBackFist} className="px-3" />
-
+          {/* <FontAwesomeIcon icon={faHandBackFist} className="px-3" /> */}
+          <div className="flex inline-flex ">
+            <div>
+              {"🗿"}
+            </div>
+            <div>
+              {"Rock"}
+            </div>
+          </div>
+          
+          
         </CustomRadio>
         <CustomRadio
           // description="Scissors"
@@ -57,13 +66,14 @@ export default function App(props) {
         // className="bg-sc bg-cover bg-center w-64 h-64 bg-red-500 bg-opacity-50"
         >
           {/* Scissors  */}
-          <FontAwesomeIcon icon={faHandScissors} className="px-3" />
+          {/* <FontAwesomeIcon icon={faHandScissors} className="px-3" /> */}
+          {"✂️ Scissors"}
         </CustomRadio>
         <CustomRadio value="3" className="">
           {/* <div className=" bg-paper bg-cover bg-contain"> */}
-          {/* Paper */}
+          {"📰 Paper"}
           {/* </div> */}
-          <FontAwesomeIcon icon={faHand} className="px-3" />
+          {/* <FontAwesomeIcon icon={faHand} className="px-3" /> */}
         </CustomRadio>
         
 

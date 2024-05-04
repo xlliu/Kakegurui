@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 
 export default function Top(props) {
-  const { t } = useTranslation();
+  const { t } = props;
   return (
     <Card className="min-w-[200px] font-zqh" radius="sm">
       <CardHeader className="flex gap-3 bg-default-100">
