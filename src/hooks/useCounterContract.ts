@@ -56,7 +56,7 @@ export function useCounterContract() {
     }
     console.log('触发Hook的回调');
     getValue();
-    const intervalId = setInterval(getValue, 7000); // 每5秒自动刷新数据
+    const intervalId = setInterval(getValue, 10000); // 每5秒自动刷新数据
     
     return () => {
       clearInterval(intervalId); // 在组件卸载时清除定时器

@@ -361,12 +361,13 @@ function App() {
             {() => (
               <>
                 <ModalBody className="flex flex-row  items-center justify-center">
-                <CircularProgress 
+                  <p>{t("Waiting for block confirmation, expected to be completed in 30s")}</p>
+                {/* <CircularProgress 
                   label="等待区块确认中，请等待页面更新后继续操作..." 
                   size="lg"
                   color="warning"
                   showValueLabel={true}
-                  />
+                  /> */}
                 </ModalBody>
               </>
             )}

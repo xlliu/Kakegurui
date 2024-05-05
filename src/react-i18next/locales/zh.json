@@ -25,5 +25,6 @@
     "Game Introduction": "游戏简介",
     "Match completed": "已完成对局",
     "Leave a clue in Telegram": "在Telegram中留下线索",
-    "Playing By Telegram.": "在Telegram中进行游戏"
+    "Playing By Telegram.": "在Telegram中进行游戏",
+    "Waiting for block confirmation, expected to be completed in 30s":"等待区块确认中，预计30s完成"
 }
