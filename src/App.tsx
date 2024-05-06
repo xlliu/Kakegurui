@@ -73,7 +73,8 @@ function App() {
 
   // const map2 = new Map(Object.entries(init_datas_dict));
   // let datas = map2.values()
-  let datas  = [];
+  // let datas  = [];
+  const [datas, setDatas] = React.useState([]);
 
   
   let bn = ""
@@ -85,7 +86,12 @@ function App() {
       ...myObject // 修改 gameId
     };
     const map2 = new Map(Object.entries(newMessage));
-    datas = map2.values()
+    const map3 = Array.from(map2.values())
+    // console.log(map2.values())
+    console.log(map3)
+    // datas  = map3;
+    
+    // setDatas(map3)
   }
 
   if (wallet) {
@@ -247,7 +253,7 @@ function App() {
                 </div>
 
               </div>
-              {/* <div className='flex flex-col' >
+              <div className='flex flex-col' >
                 <b>sumBalance</b>
                 <div className='flex flex-row items-center justify-between'>
                   <div >
@@ -257,7 +263,7 @@ function App() {
                     <BiMoneyWithdraw />
                   </button>
                 </div>
-              </div> */}
+              </div>
 
 
               <div>
