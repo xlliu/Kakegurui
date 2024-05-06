@@ -222,8 +222,8 @@ function App() {
     console.log('sendAmount!', sendAmount);
   };
   return (
-    <>
-      <header className="mx-auto dark text-foreground bg-background font-zqh">
+    <div className='mx-auto flex h-screen flex-col dark text-foreground bg-background font-zqh'>
+      <header className="">
         <div className="flex items-start justify-between ">
           <Navbar isBordered maxWidth="2xl" className="flex items-start ">
             <NavbarContent justify="start" >
@@ -268,7 +268,7 @@ function App() {
         </div>
       </header>
 
-      <main className="dark text-foreground bg-background md:h-screen font-zqh">
+      <main className="">
         <div className='container mx-auto space-y-4'>
           <div className='flex flex-col md:flex-row '>
             <div className='md:w-1/3 rounded-sm p-1'>
@@ -450,12 +450,12 @@ function App() {
           </ModalContent>
         </Modal>
       </main>
-      <footer className='flex items-start justify-center dark text-foreground bg-background font-zqh '>
+      <footer className='flex items-end justify-center mt-auto'>
         <p>&copy; {t("2024. Kakegurui Built on the Ton blockchain.")}</p>
       </footer>
 
 
-    </>
+    </div>
   )
 }
 

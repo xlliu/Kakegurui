@@ -17,7 +17,7 @@ export default function Tg(props) {
       myScript.async = true
       myScript.setAttribute('data-telegram-discussion',"jeerclub/3");
       myScript.setAttribute('data-comments-limit',"5" );
-      myScript.setAttribute('data-height',"500" );
+      myScript.setAttribute('data-height',"730" );
       myScript.setAttribute('data-colorful',"1" );
       myScript.setAttribute('data-dark',"1" );
       view!!.appendChild(myScript);
