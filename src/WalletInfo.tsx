@@ -8,10 +8,10 @@ import { useEffect, useState } from "react";
 
 
 
-export function walletInfo() {
+export function walletInfo(userFriendlyAddress) {
   const [walletInfo, setWalletInfo] = useState(null);
   const [tx, setTx] = useState(null);
-  const userFriendlyAddress = useTonAddress();
+  // const userFriendlyAddress = useTonAddress();
   // const { t } = useTranslation();
   // https://toncenter.com/api/v2/getWalletInformation?address=EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc
   const url = `https://toncenter.com/api/v2/getWalletInformation?address=${userFriendlyAddress}`;
