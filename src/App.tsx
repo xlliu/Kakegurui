@@ -219,7 +219,7 @@ function App() {
 
   const handleJoinClick = (sendAmount, joinGameMessage, onClose) => {
     
-    // sendTx(sendAmount, joinGameMessage);
+    sendTx(sendAmount, joinGameMessage);
     onClose();
     loading.onOpen();
   };
