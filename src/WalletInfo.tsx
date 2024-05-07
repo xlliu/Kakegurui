@@ -10,11 +10,12 @@ import { useEffect, useState } from "react";
 
 export function walletInfo() {
   const [walletInfo, setWalletInfo] = useState(null);
+  const [tx, setTx] = useState(null);
   const userFriendlyAddress = useTonAddress();
   // const { t } = useTranslation();
   // https://toncenter.com/api/v2/getWalletInformation?address=EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc
   const url = `https://toncenter.com/api/v2/getWalletInformation?address=${userFriendlyAddress}`;
-  
+  const urlTx = "https://toncenter.com/api/v3/transactions?account=EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc&limit=15";
   useEffect(() => {
     
     async function getWB() {
@@ -27,7 +28,6 @@ export function walletInfo() {
         }
       })
       .then(response => {
-        console.log(response.data);
         setWalletInfo(response.data)
 
       })
@@ -35,11 +35,30 @@ export function walletInfo() {
         console.error('There was a problem with the axios operation:', error);
       });
     }
+    async function getTx() {
+      if (!userFriendlyAddress) return;
+      axios.get(urlTx, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(response => {
+        console.log(response.data);
+        setTx(response.data)
+
+      })
+      .catch(error => {
+        console.error('There was a problem with the axios operation:', error);
+      });
+    }
     getWB();
-    const intervalId = setInterval(getWB, 10000); // 每5秒自动刷新数据
-    
+    getTx();
+    console.log("xxy")
+    const _getWB = setInterval(getWB, 10000); // 每5秒自动刷新数据
+    const _getTx = setInterval(getTx, 15000); // 每5秒自动刷新数据
     return () => {
-      clearInterval(intervalId); // 在组件卸载时清除定时器
+      clearInterval(_getWB); 
+      clearInterval(_getTx); 
     };
   }, [userFriendlyAddress]); // 仅在组件挂载时执行一次
   

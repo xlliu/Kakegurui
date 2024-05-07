@@ -69,7 +69,7 @@ function App() {
   const wallet = useTonWallet();
   const [tonConnectUi] = useTonConnectUI();
   const userFriendlyAddress = useTonAddress();
-  const { wInfo } = walletInfo();
+  const { wInfo } = walletInfo(userFriendlyAddress);
   
   const { activeRoomCounts, gameListActive, balance, sendTx, gamesCounts, sumBalance } = useCounterContract();
 
@@ -176,7 +176,7 @@ function App() {
       default:
         return cellValue;
     }
-  }, []);
+  }, [gameListActive]);
 
   const [bet, setBet] = React.useState();
   
@@ -268,7 +268,7 @@ function App() {
 
               <div className='flex flex-col' >
                 <div >
-                  <p className='text-sm' >Wellet Balance</p>
+                  <p className='text-sm' >{t("Wellet Balance")}</p>
                 </div>
                 <div className='flex flex-row items-center justify-center '>
                   <div >
