@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef  } from 'react';
 import Counter, { ChangeOwner, Deploy, Fee, Game, GameListActive, GameSafe, JoinGame, StopGame } from '../contracts/kkg';
 import { useTonClient } from './useTonClient';
 import { useAsyncInitialize } from './useAsyncInitialize';
@@ -10,7 +10,6 @@ export function useCounterContract() {
   const [activeRoomCounts, setActiveRoomCounts] = useState<null | String>();
   const [gamesCounts, setGamesCounts] = useState<null | String>();
   const [gameListActive, setGameListActive] = useState<GameListActive>();
-  const [resultByOne, setResultByOne] = useState<Game>();
 
   const [balance, setBalance] = useState<Map<Address, bigint>>();
   const [sumBalance, setSumBalance] = useState<string>();
@@ -35,28 +34,33 @@ export function useCounterContract() {
     );
     return client.open(contract) as OpenedContract<Counter>;
   }, [client]);
-  console.log('触发Hook的中代码');
+  console.log('触发Hook中的代码片段');
+
+  
+
   useEffect(() => {
+    
     async function getValue() {
       if (!counterContract) return;
       const respAll = await counterContract.getRespAll();
       // console.log('ra:', respAll);
       const balance = respAll.balanceOf
       const activeRoomCounts = respAll.gamesActiveCounts
-      const gameListActive = respAll.gameListActive
+      const _gameListActive = respAll.gameListActive
       const sumbalance = respAll.balance
       const gamesCounts = respAll.gamesCounts
 
       setActiveRoomCounts(activeRoomCounts.toString());
-      setGameListActive(gameListActive);
+      setGameListActive(_gameListActive);
       const bn = new Map(balance)
       setBalance(bn)
       setSumBalance(sumbalance);
       setGamesCounts(gamesCounts.toString())
+      console.log('触发Hook getValue的回调');
     }
     console.log('触发Hook的回调');
     getValue();
-    const intervalId = setInterval(getValue, 10000); // 每5秒自动刷新数据
+    const intervalId = setInterval(getValue, 5000); // 每5秒自动刷新数据
     
     return () => {
       clearInterval(intervalId); // 在组件卸载时清除定时器
@@ -68,7 +72,6 @@ export function useCounterContract() {
   }
 
   return {
-    resultByOne: resultByOne,
     activeRoomCounts: activeRoomCounts,
     gameListActive: gameListActive,
     balance: balance,

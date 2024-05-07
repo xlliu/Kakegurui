@@ -9,6 +9,7 @@ import ChoiceAmount from './ChoiceAmount.jsx';
 import ChoiceMode from './ChoiceMode.jsx';
 import Top from "./Top";
 import Tg from "./Tg";
+import { walletInfo } from './WalletInfo';
 import { AcmeLogo } from "./AcmeLogo";
 import {CircularProgress} from "@nextui-org/react";
 
@@ -20,7 +21,7 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip }
 
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure,  User } from "@nextui-org/react";
 
-import { Card, CardHeader, CardBody, CardFooter, Divider } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, CardFooter, Divider, Progress  } from "@nextui-org/react";
 import { JoinGame } from './contracts/kkg';
 
 import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/react";
@@ -68,31 +69,34 @@ function App() {
   const wallet = useTonWallet();
   const [tonConnectUi] = useTonConnectUI();
   const userFriendlyAddress = useTonAddress();
-
+  const { wInfo } = walletInfo();
+  
   const { activeRoomCounts, gameListActive, balance, sendTx, gamesCounts, sumBalance } = useCounterContract();
 
+  
   // const map2 = new Map(Object.entries(init_datas_dict));
   // let datas = map2.values()
   // let datas  = [];
   const [datas, setDatas] = React.useState([]);
-
+  const get_map = new Map(gameListActive);
+  React.useEffect(() => {
+    if (get_map.size != 0) {
+      let myObject = Object.fromEntries(get_map);
+      const newMessage = {
+        ...init_datas_dict,
+        ...myObject // 修改 gameId
+      };
+      const map2 = new Map(Object.entries(newMessage));
+      const map3 = Array.from(map2.values());
+      console.log(map3);
+      setDatas(map3);
+      console.log('触发datas的回调的更新数据');
+    }
+    console.log('触发datas的回调');
+  }, [gameListActive]);
   
   let bn = ""
-  const get_map = new Map(gameListActive);
-  if (get_map.size != 0) {
-    let myObject = Object.fromEntries(get_map);
-    const newMessage = {
-      ...init_datas_dict,
-      ...myObject // 修改 gameId
-    };
-    const map2 = new Map(Object.entries(newMessage));
-    const map3 = Array.from(map2.values())
-    // console.log(map2.values())
-    console.log(map3)
-    // datas  = map3;
-    
-    // setDatas(map3)
-  }
+  
 
   if (wallet) {
     const newMap = new Map();
@@ -172,7 +176,7 @@ function App() {
       default:
         return cellValue;
     }
-  }, [datas]);
+  }, []);
 
   const [bet, setBet] = React.useState();
   
@@ -212,13 +216,10 @@ function App() {
     onOpen()
     
   };
-  // const [loadingValue, setloadingValue] = React.useState(0);
-
-  // console.log("xxxx",loading.isOpen)
 
   const handleJoinClick = (sendAmount, joinGameMessage, onClose) => {
     
-    sendTx(sendAmount, joinGameMessage);
+    // sendTx(sendAmount, joinGameMessage);
     onClose();
     loading.onOpen();
   };
@@ -228,7 +229,7 @@ function App() {
     console.log('sendAmount!', sendAmount);
   };
   return (
-    <div className='mx-auto flex h-screen flex-col dark text-foreground bg-background font-zqh'>
+    <div className='mx-auto flex md:h-screen height: 100% flex-col dark text-foreground bg-background font-zqh'>
       <header className="">
         <div className="flex items-start justify-between ">
           <Navbar isBordered maxWidth="2xl" className="flex items-start ">
@@ -253,8 +254,8 @@ function App() {
                 </div>
 
               </div>
-              <div className='flex flex-col' >
-                <b>sumBalance</b>
+              {/* <div className='flex flex-col' >
+                <p className='text-sm ' >C Balance</p>
                 <div className='flex flex-row items-center justify-between'>
                   <div >
                     {sumBalance ?? '...'}
@@ -262,6 +263,18 @@ function App() {
                   <button onClick={() => sendTx(sendWithdraw, "withdraw safe")}>
                     <BiMoneyWithdraw />
                   </button>
+                </div>
+              </div> */}
+
+              <div className='flex flex-col' >
+                <div >
+                  <p className='text-sm' >Wellet Balance</p>
+                </div>
+                <div className='flex flex-row items-center justify-center '>
+                  <div >
+                    {wInfo && Number(fromNano(wInfo.result.balance)).toFixed(2)}
+                    {/* {wInfo && fromNano(wInfo.result.balance)} */}
+                  </div>
                 </div>
               </div>
 
@@ -310,7 +323,12 @@ function App() {
                           {column.label}
                         </TableColumn>}
                     </TableHeader>
-                    <TableBody items={datas} emptyContent={"Waiting for the blockchain to return data."}>
+                    <TableBody items={datas} emptyContent={<Progress
+                        size="sm"
+                        isIndeterminate
+                        aria-label="Waiting for the blockchain to return data..."
+                        className="max-w-md"
+                      />}>
                       {(item: { roomId: React.SetStateAction<bigint> }) => (
                         <TableRow key={item.roomId}>
                           {(columnKey: any) => <TableCell className='px-1' onClick={() => handleRowClick(item)}>{renderCell(item, columnKey)}</TableCell>}
@@ -358,8 +376,8 @@ function App() {
           sendTx
         </a> */}
         </div>
-        <Modal 
-          isOpen={loading.isOpen} 
+        {/* <Modal 
+          isOpen=True
           onOpenChange={loading.onOpenChange} 
           className='dark text-foreground bg-background font-zqh'
           >
@@ -367,7 +385,23 @@ function App() {
             {() => (
               <>
                 <ModalBody className="flex flex-row  items-center justify-center">
-                  <p>{t("Waiting for block confirmation, expected to be completed in 30s")}</p>
+                  <p>{t("Ton network has serious data acquisition problems, please do not play the game")}</p>
+                </ModalBody>
+              </>
+            )}
+          </ModalContent>
+        </Modal> */}
+        <Modal 
+          isOpen={loading.isOpen} 
+          onOpenChange={loading.onOpenChange} 
+          className='dark text-foreground bg-background font-zqh'
+          placement="center"
+          >
+          <ModalContent>
+            {() => (
+              <>
+                <ModalBody className="flex flex-row  items-center justify-center">
+                  <p>{t("Waiting for block confirmation, page data will be automatically updated after block confirmation")}</p>
                 {/* <CircularProgress 
                   label="等待区块确认中，请等待页面更新后继续操作..." 
                   size="lg"
