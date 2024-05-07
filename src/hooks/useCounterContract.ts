@@ -21,7 +21,7 @@ export function useCounterContract() {
 
   const counterContract = useAsyncInitialize(async () => {
     if (!client) return;
-    console.log('触发Hook的client 回调打开合约');
+    // console.log('触发Hook的client 回调打开合约');
     const contract = new Counter(
       // Address.parse('EQAMRK6UZ5QUyjIDoPn2WcrgXWBDODJLxkSbZCYl_ZMF6Ip-') //local
       // Address.parse('EQD1ddV64rYt8hb3uOFBfaXWHILSherUXPV994x6Kr1w5uY_') //new version onlion
@@ -34,7 +34,7 @@ export function useCounterContract() {
     );
     return client.open(contract) as OpenedContract<Counter>;
   }, [client]);
-  console.log('触发Hook中的代码片段');
+  // console.log('触发Hook中的代码片段');
 
   
 
@@ -56,9 +56,9 @@ export function useCounterContract() {
       setBalance(bn)
       setSumBalance(sumbalance);
       setGamesCounts(gamesCounts.toString())
-      console.log('触发Hook getValue的回调');
+      // console.log('触发Hook getValue的回调');
     }
-    console.log('触发Hook的回调');
+    // console.log('触发Hook的回调');
     getValue();
     const intervalId = setInterval(getValue, 5000); // 每5秒自动刷新数据
     

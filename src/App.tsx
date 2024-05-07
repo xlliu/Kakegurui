@@ -88,11 +88,11 @@ function App() {
       };
       const map2 = new Map(Object.entries(newMessage));
       const map3 = Array.from(map2.values());
-      console.log(map3);
+      // console.log(map3);
       setDatas(map3);
-      console.log('触发datas的回调的更新数据');
+      // console.log('触发datas的回调的更新数据');
     }
-    console.log('触发datas的回调');
+    // console.log('触发datas的回调');
   }, [gameListActive]);
   
   let bn = ""
@@ -115,7 +115,7 @@ function App() {
 
   const renderCell = React.useCallback((row, columnKey) => {
     // loading.onClose();
-    console.log('refush data')
+    // console.log('refush data')
     const cellValue = row[columnKey];
     switch (columnKey) {
       case "currentBetAmount":

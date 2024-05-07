@@ -21,7 +21,7 @@ export function walletInfo(userFriendlyAddress, wallet) {
     async function getWB() {
       if (!userFriendlyAddress) return;
       
-      console.log(url)
+      // console.log(url)
       axios.get(url, {
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export function walletInfo(userFriendlyAddress, wallet) {
         }
       })
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         setTx(response.data)
 
       })
