@@ -402,7 +402,7 @@ function App() {
             {() => (
               <>
                 <ModalBody className="flex flex-row  items-center justify-center">
-                  <p>{t("Waiting for block confirmation, page data will be automatically updated after block confirmation")}</p>
+                  <p>{t("Waiting for block confirmation, page data will be automatically updated after block confirmation. During the data propagation process in the block, the game data may flash the results of the last game data, which will not affect the current game results. The page display will return to normal after all nodes are synchronized and confirmed.")}</p>
                 {/* <CircularProgress 
                   label="等待区块确认中，请等待页面更新后继续操作..." 
                   size="lg"

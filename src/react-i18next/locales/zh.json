@@ -26,7 +26,7 @@
     "Match completed": "已完成对局",
     "Leave a clue in Telegram": "在Telegram中留下线索",
     "Playing By Telegram.": "在Telegram中进行游戏",
-    "Waiting for block confirmation, page data will be automatically updated after block confirmation":"等待区块确认，页面数据将在区块确认后自动更新",
+    "Waiting for block confirmation, page data will be automatically updated after block confirmation. During the data propagation process in the block, the game data may flash the results of the last game data, which will not affect the current game results. The page display will return to normal after all nodes are synchronized and confirmed.":"等待区块确认，页面数据将在区块确认后自动更新。数据在区块传播过程中，游戏对局数据可能会闪烁最后一次的对局数据的结果，不会对当前对局结果造成影响，所有节点同步确认后页面展示将恢复正常。",
     "Ton network has serious data acquisition problems, please do not play the game": "Ton 络出现严重的获取数据问题，请不要进行游戏",
     "Wellet Balance": "余额"
 }
