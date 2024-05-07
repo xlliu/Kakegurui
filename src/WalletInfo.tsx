@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 
 
-export function walletInfo(userFriendlyAddress) {
+export function walletInfo(userFriendlyAddress, wallet) {
   const [walletInfo, setWalletInfo] = useState(null);
   const [tx, setTx] = useState(null);
   // const userFriendlyAddress = useTonAddress();
@@ -34,6 +34,9 @@ export function walletInfo(userFriendlyAddress) {
       .catch(error => {
         console.error('There was a problem with the axios operation:', error);
       });
+      if (!wallet) {
+        clearInterval(_getWB); 
+      };
     }
     async function getTx() {
       if (!userFriendlyAddress) return;

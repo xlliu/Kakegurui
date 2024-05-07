@@ -69,7 +69,7 @@ function App() {
   const wallet = useTonWallet();
   const [tonConnectUi] = useTonConnectUI();
   const userFriendlyAddress = useTonAddress();
-  const { wInfo } = walletInfo(userFriendlyAddress);
+  const { wInfo } = walletInfo(userFriendlyAddress,wallet);
   
   const { activeRoomCounts, gameListActive, balance, sendTx, gamesCounts, sumBalance } = useCounterContract();
 
@@ -271,8 +271,9 @@ function App() {
                   <p className='text-sm' >{t("Wellet Balance")}</p>
                 </div>
                 <div className='flex flex-row items-center justify-center '>
-                  <div >
-                    {wInfo && Number(fromNano(wInfo.result.balance)).toFixed(2)}
+                  <div > { wallet ? 
+                    wInfo && Number(fromNano(wInfo.result.balance)).toFixed(2) : 0
+                  }
                     {/* {wInfo && fromNano(wInfo.result.balance)} */}
                   </div>
                 </div>
