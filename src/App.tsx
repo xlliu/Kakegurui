@@ -210,7 +210,8 @@ function App() {
     const newMessage = {
       ...joinGameMessage,
       gameId: BigInt(row.roomId), // 修改 gameId
-      betAmount: BigInt(row.currentBetAmount)
+      betAmount: BigInt(row.currentBetAmount),
+      move: BigInt(1)
     };
     updateJoinGameMessage(newMessage);
     onOpen()
