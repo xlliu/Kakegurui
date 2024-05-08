@@ -36,9 +36,9 @@ import { useTranslation } from "react-i18next";
 
 const statusColorMap = {
   3: "success",
-  2: "warning",
+  2: "success",
   1: "warning",
-  0: "warning",
+  0: "Default",
 
 };
 
