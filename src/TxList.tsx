@@ -7,25 +7,20 @@ import { TonConnectButton, useTonConnectUI, useTonWallet, useTonAddress } from "
 import { useEffect, useState, useCallback } from "react";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Progress, Textarea, Link  } from "@nextui-org/react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, getKeyValue, User, AvatarGroup, Avatar } from "@nextui-org/react";
-
+import { toNano, fromNano } from '@ton/core';
 // import  TonWeb  from "tonweb";
 
 
 // export default function Top(props) {
 export default function TxList(props) {
   const { t, wallet, addr_args, userFriendlyAddress  } = props;
-  const [tx, setTx] = useState();
+  // const [tx, setTx] = useState();
   const [transactions, setTransactions] = useState([]);
   const [addrMap, setAddrMap] = useState();
 
-  const urlTx = "https://toncenter.com/api/v3/transactions?account=EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc&limit=10";
+  const urlTx = "https://toncenter.com/api/v3/transactions?account=EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc&limit=15";
   useEffect(() => {
     function getWB() {
-      if (!wallet) return;
-      // const balance = await tonweb.getBalance(userFriendlyAddress);
-      // const tx = await tonweb.getTransactions("EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc", 15)
-      // console.log("zzy", Number(balance), tx)
-      
       axios.get(urlTx, {
         headers: {
           'Content-Type': 'application/json',
@@ -33,7 +28,7 @@ export default function TxList(props) {
         }
       })
       .then(response => {
-        setTx(response.data);
+        // setTx(response.data);
         console.log("tx!!.transactions", response.data)
         setTransactions(response.data.transactions);
         setAddrMap(response.data.address_book);
@@ -51,7 +46,7 @@ export default function TxList(props) {
     return () => {
       clearInterval(_getWB); 
     };
-  }, [wallet]); // 仅在组件挂载时执行一次
+  }, [transactions]); // 仅在组件挂载时执行一次
   
   
   const renderCell = useCallback((row, columnKey) => {
@@ -59,22 +54,23 @@ export default function TxList(props) {
     // console.log('refush data')
     const cellValue = row[columnKey];
     switch (columnKey) {
-      case "orig_status":
+      case "value":
         return (
-          <div className="flex flex-row space-x-3 items-center justify-start">
-            <User
-              avatarProps={{ src: "./ton.svg" }}
-              description="Toncoin"
-              name={addrMap && addrMap[row.in_msg.source].user_friendly.slice(-4)}
-            ></User>
+          <div className="flex  flex-row items-center justify-center">
+            {row.in_msg.opcode == "0x00000000" ? 
+              row.out_msgs && Number(fromNano(row.out_msgs[0].value)).toFixed(2) : row.in_msg && fromNano(row.in_msg.value)
+            }
+          </div>
+        );
+      case "opcode":
+        return (
+          <div className="flex  flex-row items-center justify-center">
+            {row.in_msg.opcode == "0x00000000" ? t("Withdraw"): t("Join Game")}
           </div>
         );
       case "now":
         return (
-
-            
-          
-          <div className="flex  flex-row items-center justify-start">
+          <div className="flex  flex-row items-center justify-center">
           {/* <p>
             在: 
           </p> */}
@@ -86,13 +82,16 @@ export default function TxList(props) {
         );
       case "hash":
         return (
-          <div className="flex flex-row items-center justify-start">
-            {/* <p>
-              产生交易Hash: 
-            </p> */}
-            <a className="capitalize" >
-              {cellValue.slice(0,4)+ "..." + cellValue.slice(-4)}
-            </a>
+          <div className="flex flex-row items-center justify-center">
+
+            <Link
+              isExternal
+              // showAnchorIcon
+              href={"https://tonscan.org/tx/" + cellValue}
+              className="text-small"
+            >
+              {cellValue.slice(0,6)+ ".."}
+            </Link>
           </div>
         );
       case "account":
@@ -101,7 +100,7 @@ export default function TxList(props) {
           //   <p className="text-bold text-xs capitalize">{row.win_addr ? row.win_addr.toString(addr_args).slice(-4) : ""} </p>
           //   {/* <p className="text-bold text-sm capitalize text-default-400">Winer</p> */}
           // </div>
-          <div className="flex items-center justify-center">
+          <div className="flex flex-row items-center justify-center">
           <p>
             {addrMap && addrMap[row.in_msg.source].user_friendly.slice(-4)}
           </p>
@@ -130,7 +129,7 @@ export default function TxList(props) {
   const columns_tx = [
     {
       key: "account",
-      label: "account",
+      label: "User Addr",
     },
     // {
     //   key: "description",
@@ -142,31 +141,32 @@ export default function TxList(props) {
     // },
     {
       key: "now",
-      label: "now",
+      label: "Time",
     },
-    // {
-    //   key: "out_msgs",
-    //   label: "out_msgs",
-    // },
+    {
+      key: "opcode",
+      label: "Active",
+    },
+    {
+      key: "value",
+      label: "value",
+    },
     {
       key: "hash",
-      label: "hash",
+      label: "Tx Hash",
     },
-    {
-      key: "orig_status",
-      label: "orig_status",
-    },
+
   ];
 
   return (
-    // <Card className="min-w-[200px] font-zqh" radius="sm">
-    //   {/* <CardHeader className="flex gap-3 bg-default-100">
-    //     <div className="flex flex-raw justify-between w-[100%]">
-    //       <div className="text-md flex items-end px-1 ">{t("Tip")}</div>
-    //     </div>
-    //   </CardHeader>
-    //   <Divider /> */}
-    //   <CardBody  className="p-0">
+    <Card className="min-w-[350px] font-zqh h-[753px]" radius="sm">
+      <CardHeader className="flex gap-3 bg-default-100">
+        <div className="flex flex-raw justify-between w-[100%]">
+          <div className="text-md flex items-end px-1 ">{t("Game Records")}</div>
+        </div>
+      </CardHeader>
+      <Divider />
+      <CardBody  className="p-0">
         <Table
           color="warning"
           selectionMode="single"
@@ -174,9 +174,10 @@ export default function TxList(props) {
           aria-label="Example static collection table"
           radius="sm"
           fullWidth
-          // hideHeader
+          hideHeader
+          
         >
-          <TableHeader columns={columns_tx} >
+          <TableHeader columns={columns_tx} className="flex bg-default-100">
             {(column: { key: any; label: any; }) =>
               <TableColumn key={column.key} >
                 {column.label}
@@ -196,17 +197,17 @@ export default function TxList(props) {
 
           </TableBody>
         </Table>
-    //   </CardBody>
-    //   <Divider />
-    //   <CardFooter className="flex flex-raw justify-end">
-    //     <Link
-    //       isExternal
-    //       showAnchorIcon
-    //       href="https://t.me/jeerclub"
-    //     >
-    //       {t("Playing By Telegram.")}
-    //     </Link>
-    //   </CardFooter>
-    // </Card>
+      </CardBody>
+      <Divider />
+      <CardFooter className="flex flex-raw justify-end">
+        <Link
+          isExternal
+          showAnchorIcon
+          href="https://tonscan.org"
+        >
+          {t("tonscan.org")}
+        </Link>
+      </CardFooter>
+    </Card>
   );
 }
