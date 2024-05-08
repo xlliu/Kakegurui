@@ -29,7 +29,7 @@ export default function TxList(props) {
       })
       .then(response => {
         // setTx(response.data);
-        console.log("tx!!.transactions", response.data)
+        // console.log("tx!!.transactions", response.data)
         setTransactions(response.data.transactions);
         setAddrMap(response.data.address_book);
       })

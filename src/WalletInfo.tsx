@@ -28,7 +28,7 @@ export function walletInfo(userFriendlyAddress,wallet) {
         }
       })
       .then(response => {
-        console.log("balance",response.data)
+        // console.log("balance",response.data)
         setWalletInfo(response.data)
         
       })
