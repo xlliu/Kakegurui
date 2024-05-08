@@ -55,7 +55,7 @@ const columns = [
 const init_datas_dict = {
     1n : {
       roomId: "1",
-      currentBetAmount: toNano("100"),
+      currentBetAmount: toNano("20"),
       player1: null,
       status: 0n,
       count: 1n,
@@ -154,7 +154,7 @@ const init_datas_dict = {
 const init_datas = [
   {
     roomId: "1",
-    currentBetAmount: toNano("100"),
+    currentBetAmount: toNano("20"),
     player1: null,
     status: 0n,
     count: 1n,
@@ -162,7 +162,7 @@ const init_datas = [
   },
   {
     roomId: "2",
-    currentBetAmount: toNano("300"),
+    currentBetAmount: toNano("100"),
     player1: null,
     status: 0n,
     count: 1n,
@@ -170,7 +170,7 @@ const init_datas = [
   },
   {
     roomId: "3",
-    currentBetAmount: toNano("500"),
+    currentBetAmount: toNano("300"),
     player1: null,
     status: 0n,
     count: 1n,
@@ -178,7 +178,7 @@ const init_datas = [
   },
   {
     roomId: "4",
-    currentBetAmount: toNano("1000"),
+    currentBetAmount: toNano("500"),
     player1: null,
     status: 0n,
     count: 1n,
@@ -186,6 +186,14 @@ const init_datas = [
   },
   {
     roomId: "5",
+    currentBetAmount: toNano("1000"),
+    player1: null,
+    status: 0n,
+    count: 1n,
+    current_count: 0n,
+  },
+  {
+    roomId: "6",
     currentBetAmount: toNano("5000"),
     player1: null,
     status: 0n,

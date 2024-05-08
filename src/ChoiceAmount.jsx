@@ -6,12 +6,16 @@ export default function App(props) {
   const { joinGameMessage, updateJoinGameMessage,bet, setBet } = props;
   let tabs = [
     {
+      id: toNano("20"),
+      label: "20 Ton",
+    },
+    {
       id: toNano("100"),
       label: "100 Ton",
     },
     {
       id: toNano("300"),
-      label: "300 Ton",
+      label: "300",
     },
     {
       id: toNano("500"),
