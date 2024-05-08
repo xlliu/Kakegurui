@@ -60,6 +60,7 @@ export default function App(props) {
     <>
     <div className="flex w-full flex-col">
       <Tabs 
+      isDisabled
       aria-label="Dynamic tabs" 
       items={tabs} 
       selectedKey={selected}
