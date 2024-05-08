@@ -233,7 +233,7 @@ function App() {
     console.log('sendAmount!', sendAmount);
   };
   return (
-    <div className='mx-auto flex md:h-screen height: 100% flex-col dark text-foreground bg-background font-zqh'>
+    <div className='mx-auto flex md:h-screen height: 100% flex-col dark text-foreground  font-zqh bg-kkg bg-cover bg-center'>
       <header className="">
         <div className="flex items-start justify-between ">
           <Navbar isBordered maxWidth="2xl" className="flex items-start ">
@@ -290,7 +290,7 @@ function App() {
         </div>
       </header>
 
-      <main className="">
+      <main className=""  style={{ opacity: 0.96 }}>
         <div className='container mx-auto space-y-4'>
           <div className='flex flex-col md:flex-row '>
             <div className='md:w-1/3 rounded-sm p-1'>
@@ -354,7 +354,7 @@ function App() {
             <div className='md:w-1/3 rounded-sm p-1'>
               <TxList t={t} wallet={wallet} addr_args={addr_args} userFriendlyAddress={userFriendlyAddress} />
             </div>
-            <div>
+            <div className='hidden md:block'>
               <div className="flex flex-wrap md:inline-grid md:grid-cols-3 gap-4">
                 <Popover key="top-end" placement="top-end">
                   <PopoverTrigger>
