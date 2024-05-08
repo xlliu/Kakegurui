@@ -1,8 +1,6 @@
 
 import { Card, CardHeader, CardBody, CardFooter, Divider, Image, Link } from "@nextui-org/react";
 import { Textarea } from "@nextui-org/react";
-import { useTranslation } from "react-i18next";
-
 
 
 export default function Top(props) {

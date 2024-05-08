@@ -9,6 +9,7 @@ import ChoiceAmount from './ChoiceAmount.jsx';
 import ChoiceMode from './ChoiceMode.jsx';
 import Top from "./Top";
 import Tg from "./Tg";
+import TxList from "./TxList";
 import { walletInfo } from './WalletInfo';
 import { AcmeLogo } from "./AcmeLogo";
 import {CircularProgress} from "@nextui-org/react";
@@ -17,7 +18,7 @@ import { toNano, fromNano } from '@ton/core';
 import { columns, init_datas_dict } from "./data";
 import './App.css'
 
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip } from "@nextui-org/react";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, getKeyValue } from "@nextui-org/react";
 
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure,  User } from "@nextui-org/react";
 
@@ -97,6 +98,7 @@ function App() {
   
   let bn = ""
   
+
 
   if (wallet) {
     const newMap = new Map();
@@ -279,8 +281,6 @@ function App() {
                   </div>
                 </div>
               </div>
-
-
               <div>
                 <TonConnectButton />
               </div>
@@ -351,8 +351,14 @@ function App() {
               </Card>
             </div>
             <div className='md:w-1/3 rounded-sm p-1'>
-              <Tg t = {t} />
+              <TxList t = {t} wallet={wallet} addr_args={addr_args} userFriendlyAddress={userFriendlyAddress}/>
             </div>
+            {/* <div className='md:w-1/3 rounded-sm p-1'>
+              <Tg t = {t} />
+            </div> */}
+            
+            
+            
           </div>
           {/* <ListGame />
       <DetailsGame /> */}

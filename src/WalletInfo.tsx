@@ -3,67 +3,49 @@ import {Tooltip} from "@nextui-org/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { TonConnectButton, useTonConnectUI, useTonWallet, useTonAddress } from "@tonconnect/ui-react";
 import { useEffect, useState } from "react";
 
+// import  TonWeb  from "tonweb";
 
-
-export function walletInfo(userFriendlyAddress, wallet) {
+export function walletInfo(userFriendlyAddress,wallet) {
+  // const { t} = props;
   const [walletInfo, setWalletInfo] = useState(null);
-  const [tx, setTx] = useState(null);
   // const userFriendlyAddress = useTonAddress();
   // const { t } = useTranslation();
   // https://toncenter.com/api/v2/getWalletInformation?address=EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc
   const url = `https://toncenter.com/api/v2/getWalletInformation?address=${userFriendlyAddress}`;
-  const urlTx = "https://toncenter.com/api/v3/transactions?account=EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc&limit=15";
   useEffect(() => {
-    
-    async function getWB() {
-      if (!userFriendlyAddress) return;
+    function getWB() {
+      if (!wallet) return;
+      // const balance = await tonweb.getBalance(userFriendlyAddress);
+      // const tx = await tonweb.getTransactions("EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc", 15)
+      // console.log("zzy", Number(balance), tx)
       
-      // console.log(url)
       axios.get(url, {
         headers: {
           'Content-Type': 'application/json',
+          'X-Api-Key': '6cda0934e83bf49807ae65817dab80318ba494aa734fbcc923d607d930a2db61'
         }
       })
       .then(response => {
+        console.log("balance",response.data)
         setWalletInfo(response.data)
-
+        
       })
       .catch(error => {
         console.error('There was a problem with the axios operation:', error);
       });
+
       if (!wallet) {
         clearInterval(_getWB); 
       };
+      
     }
-    async function getTx() {
-      if (!userFriendlyAddress) return;
-      axios.get(urlTx, {
-        headers: {
-          'Content-Type': 'application/json',
-        }
-      })
-      .then(response => {
-        // console.log(response.data);
-        setTx(response.data)
-
-      })
-      .catch(error => {
-        console.error('There was a problem with the axios operation:', error);
-      });
-    }
-    getWB();
-    getTx();
-    console.log("xxy")
-    const _getWB = setInterval(getWB, 10000); // 每5秒自动刷新数据
-    const _getTx = setInterval(getTx, 15000); // 每5秒自动刷新数据
+    const _getWB = setInterval(getWB, 5000); // 每5秒自动刷新数据
     return () => {
       clearInterval(_getWB); 
-      clearInterval(_getTx); 
     };
-  }, [userFriendlyAddress]); // 仅在组件挂载时执行一次
+  }, [wallet]); // 仅在组件挂载时执行一次
   
   return {
     wInfo: walletInfo
