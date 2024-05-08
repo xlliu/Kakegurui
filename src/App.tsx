@@ -330,7 +330,7 @@ function App() {
                       size="sm"
                       isIndeterminate
                       aria-label="Waiting for the blockchain to return data..."
-                      className="max-w-md"
+                      className="max-w"
                     />}>
                       {(item: { roomId: React.SetStateAction<bigint> }) => (
                         <TableRow key={item.roomId}>
