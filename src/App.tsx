@@ -63,6 +63,14 @@ const resMapS = {
   "0": "❔",
 };
 
+
+const resMapIMG = {
+  "3": "/Picture3.png" , 
+  "2": "/Picture2.png" , 
+  "1": "/Picture1.png", 
+  "0": "", 
+};
+
 // const addr_args = { urlSafe: true, bounceable: false, testOnly: true };
 const addr_args = { urlSafe: true, bounceable: false, testOnly: false };
 
@@ -134,12 +142,24 @@ function App() {
       case "player1":
         return (
           <AvatarGroup isBordered>
-            <Avatar
+            {/* <Avatar
               name={row.player1 ? resMapS[(row.player1).choice.toString()] : ''}
               isDisabled={row.player1 ? false : true}
               isBordered={row.player1 ? true : false}
               // icon={<AvatarIcon />}
               radius="sm"
+              color={row.player1 ? (row.player1.addr.toString(addr_args) == userFriendlyAddress ? "warning" : "default") : "default"}
+            /> */}
+            <Avatar
+              name={row.player1 ? resMapS[(row.player1).choice.toString()] : ''}
+              isDisabled={row.player1 ? false : true}
+              isBordered ={row.player1 ? true : false}
+              // radius="sm"
+              imgProps={{
+                alt: "User Avatar",
+                className: "p-2",
+              }}
+              src={row.player1 ? resMapIMG[(row.player1).choice.toString()] : ''}
               color={row.player1 ? (row.player1.addr.toString(addr_args) == userFriendlyAddress ? "warning" : "default") : "default"}
             />
             <Avatar
@@ -147,7 +167,13 @@ function App() {
               isDisabled={row.player2 ? false : true}
               isBordered={row.player2 ? true : false}
               // icon={row.player2 ? resMap[(row.player2).choice.toString()] : <AvatarIcon />}
-              radius="sm"
+              imgProps={{
+                alt: "User Avatar",
+                className: "p-2",
+              }}
+              // radius="sm"
+              src={row.player2 ? resMapIMG[(row.player2).choice.toString()] : ''}
+
               color={row.player2 ? (row.player2.addr.toString(addr_args) == userFriendlyAddress ? "warning" : "default") : "default"}
             />
           </AvatarGroup>
