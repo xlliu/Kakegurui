@@ -12,8 +12,12 @@ export default {
         'rock': "url('/public/rock.png')",
         'paper': "url('/public/paper.png')",
         'ton': "url('/public/ton.svg')",
+<<<<<<< HEAD
         'kkg': "url('/public/kkg.png')",
         'kkg2': "url('/public/kkg2.jpg')"
+=======
+        'kkg': "url('/public/kkg-tiny.png')",
+>>>>>>> 85cb6bdbea8f9ace67296f83b2d761dee0521de4
       },
       fontFamily: {
         'skranji': ['Skranji', 'cursive'],
