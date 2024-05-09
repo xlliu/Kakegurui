@@ -24,7 +24,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDi
 
 import { Card, CardHeader, CardBody, CardFooter, Divider, Progress } from "@nextui-org/react";
 import { JoinGame } from './contracts/kkg';
-import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
+import { Popover, PopoverTrigger, PopoverContent,Image } from "@nextui-org/react";
 
 import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/react";
 import { FaRegHandRock, FaRegHandPaper, FaRegHandScissors } from 'react-icons/fa';
@@ -260,21 +260,26 @@ function App() {
   };
   return (
     <div className='mx-auto flex md:h-screen height: 100% flex-col dark text-foreground  font-zqh bg-kkg2 bg-cover bg-center'>
-      <header className="">
-        <div className="flex items-start justify-between ">
           <Navbar isBordered maxWidth="2xl" className="flex items-start ">
-            <NavbarContent justify="start" >
-              <NavbarBrand className="mr-4">
-                <AcmeLogo />
-                <p className="hidden sm:block text-3xl text-inherit ">{t("Kakegurui")}</p>
+            <NavbarContent justify="start" className='hidden sm:block'>
+              <NavbarBrand className="mt-4">
+                {/* <AcmeLogo /> */}
+                <Image
+                  width={36}
+                  height={36}
+                  radius="sm"
+                  src="/favicon.ico"
+                  className=''
+                />
+                <p className="ml-2 text-3xl text-inherit ">{t("Kakegurui")}</p>
               </NavbarBrand>
             </NavbarContent>
-            <NavbarContent as="div" className="items-center" justify="end">
+            <NavbarContent as="div" className="items-center " justify="end">
 
-              <div className='flex flex-col' >
-                <p className='text-sm '>{t("Withdraw")}</p>
-                <div className='flex flex-row items-center justify-between'>
-                  <div >
+              <div className='flex flex-col min-w-[80px]'>
+                <p className='text-sm flex justify-end'>{t("Withdraw")}</p>
+                <div className='flex flex-row items-center justify-end'>
+                  <div className='px-4'>
                     {bn != null ? fromNano(bn) : '0'}
                   </div>
                   <button onClick={() => sendTx(sendWithdraw, "Withdraw")}>
@@ -296,11 +301,11 @@ function App() {
                 </div>
               </div> */}
 
-              <div className='flex flex-col' >
+              <div className='flex flex-col min-w-[80px]' >
                 <div >
-                  <p className='text-sm' >{t("Wellet Balance")}</p>
+                  <p className='text-sm flex justify-end ' >{t("Wellet Balance")}</p>
                 </div>
-                <div className='flex flex-row items-center justify-center '>
+                <div className='flex flex-row items-center justify-end '>
                   <div > {wallet ?
                     wInfo && Number(fromNano(wInfo.result.balance)).toFixed(2) : 0
                   }
@@ -308,13 +313,11 @@ function App() {
                   </div>
                 </div>
               </div>
-              <div>
-                <TonConnectButton />
+              <div className=''>
+                <TonConnectButton className=''/>
               </div>
             </NavbarContent>
           </Navbar>
-        </div>
-      </header>
 
       <main className=""  style={{ opacity: 0.9 }}>
         <div className='container mx-auto space-y-4'>
