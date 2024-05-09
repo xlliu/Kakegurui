@@ -13,6 +13,7 @@ export default {
         'paper': "url('/public/paper.png')",
         'ton': "url('/public/ton.svg')",
         'kkg': "url('/public/kkg.png')",
+        'kkg2': "url('/public/kkg2.jpg')"
       },
       fontFamily: {
         'skranji': ['Skranji', 'cursive'],
