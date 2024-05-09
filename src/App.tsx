@@ -151,7 +151,7 @@ function App() {
               color={row.player1 ? (row.player1.addr.toString(addr_args) == userFriendlyAddress ? "warning" : "default") : "default"}
             /> */}
             <Avatar
-              name={row.player1 ? resMapS[(row.player1).choice.toString()] : ''}
+              // name={row.player1 ? resMapS[(row.player1).choice.toString()] : ''}
               isDisabled={row.player1 ? false : true}
               isBordered ={row.player1 ? true : false}
               // radius="sm"
@@ -163,7 +163,7 @@ function App() {
               color={row.player1 ? (row.player1.addr.toString(addr_args) == userFriendlyAddress ? "warning" : "default") : "default"}
             />
             <Avatar
-              name={row.player2 ? resMapS[(row.player2).choice.toString()] : ''}
+              // name={row.player2 ? resMapS[(row.player2).choice.toString()] : ''}
               isDisabled={row.player2 ? false : true}
               isBordered={row.player2 ? true : false}
               // icon={row.player2 ? resMap[(row.player2).choice.toString()] : <AvatarIcon />}
