@@ -12,7 +12,7 @@ export default {
         'rock': "url('/public/rock.png')",
         'paper': "url('/public/paper.png')",
         'ton': "url('/public/ton.svg')",
-        'kkg': "url('/public/kkg.png')",
+        'kkg': "url('/public/kkg-tiny.png')",
       },
       fontFamily: {
         'skranji': ['Skranji', 'cursive'],
