@@ -9,11 +9,13 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'rock': "url('/public/rock.png')",
-        'paper': "url('/public/paper.png')",
+        'rock': "url('/public/Picture1.png')",
+        'sc': "url('/public/Picture2.png')",
+        'paper': "url('/public/Picture3.png')",
         'ton': "url('/public/ton.svg')",
         'kkg': "url('/public/kkg.png')",
         'kkg2': "url('/public/kkg2.png')",
+        'rsp': "url('/public/bg22.jpg')",
       },
       fontFamily: {
         'skranji': ['Skranji', 'cursive'],

@@ -50,8 +50,8 @@ export default function App(props) {
       ...joinGameMessage,
       betAmount: BigInt(selected)
     };
-    console.log("newMessage", newMessage);
-    setBet(selected)
+    // console.log("newMessage", newMessage);
+    setBet(BigInt(selected))
     updateJoinGameMessage(newMessage);
   };
 

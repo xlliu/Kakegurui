@@ -316,7 +316,7 @@ function App() {
         </div>
       </header>
 
-      <main className=""  style={{ opacity: 0.96 }}>
+      <main className=""  style={{ opacity: 0.9 }}>
         <div className='container mx-auto space-y-4'>
           <div className='flex flex-col md:flex-row '>
             <div className='md:w-1/3 rounded-sm p-1'>
@@ -386,7 +386,7 @@ function App() {
                   <PopoverTrigger>
                     <Button
                       className="Telegram Chat" // 设置按钮的类名为 back-to-top-btn
-                      style={{ position: 'fixed', bottom: '40px', right: '30px' }} // 设置按钮位置为右下角
+                      style={{ position: 'fixed', bottom: '40px', right: '30px', backgroundColor: '#ccfd07'}} // 设置按钮位置为右下角
                     >
                       {t("Game Clues")}
                     </Button>
@@ -444,8 +444,9 @@ function App() {
           placement="center"
         >
           <ModalContent>
-            {() => (
+            {(onClose: any) => (
               <>
+              <ModalHeader className="flex flex-col gap-2">{t("Tip")} </ModalHeader>
                 <ModalBody className="flex flex-row  items-center justify-center">
                   <p>{t("Waiting for block confirmation, page data will be automatically updated after block confirmation. During the data propagation process in the block, the game data may flash the results of the last game data, which will not affect the current game results. The page display will return to normal after all nodes are synchronized and confirmed.")}</p>
                   {/* <CircularProgress 
@@ -455,6 +456,11 @@ function App() {
                   showValueLabel={true}
                   /> */}
                 </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="flat" onPress={onClose}>
+                    {t("Close")}
+                  </Button>
+                </ModalFooter>
               </>
             )}
           </ModalContent>
@@ -515,7 +521,7 @@ function App() {
                     sendTx
                   </Button> */}
                   {/* <Button color="primary" onPress={showForm}>
-                    {t("showForm")}
+                    {t("Check Submit")}
                   </Button> */}
                   {wallet ? (
                     // <Button onClick={() => tonConnectUi.sendTransaction(tx)}>
