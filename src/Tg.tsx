@@ -28,7 +28,7 @@ export default function Tg(props) {
   }, []);
 
   return (
-    <Card className="min-w-[500px] min-h-[400px] hidden md:block" radius="sm">
+    <Card className="min-w-[500px] min-h-[400px] " radius="sm">
       <div id="content-view-tg">
       </div>
       <Divider />

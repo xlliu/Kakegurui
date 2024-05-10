@@ -71,6 +71,7 @@ const resMapIMG = {
   "0": "", 
 };
 
+
 // const addr_args = { urlSafe: true, bounceable: false, testOnly: true };
 const addr_args = { urlSafe: true, bounceable: false, testOnly: false };
 
@@ -83,20 +84,24 @@ function App() {
 
   const { activeRoomCounts, gameListActive, balance, sendTx, gamesCounts, sumBalance } = useCounterContract();
 
-  React.useEffect(() => {
-		tonConnectUi.onStatusChange(async w => {
-			if (!w) {
-        console.log("w 不存在 返回")
-				return;
-			}
-      // console.log("TUi w Status", w.connectItems);
-			// if (w.connectItems?.tonProof && 'proof' in w.connectItems.tonProof) {
-      //   console.log("w 存在", w.connectItems.tonProof.proof, w.account)
-			// }
 
-		}
+
+  
+
+  // React.useEffect(() => {
+	// 	tonConnectUi.onStatusChange(async w => {
+	// 		if (!w) {
+  //       console.log("w 不存在 返回")
+	// 			return;
+	// 		}
+  //     // console.log("TUi w Status", w.connectItems);
+	// 		// if (w.connectItems?.tonProof && 'proof' in w.connectItems.tonProof) {
+  //     //   console.log("w 存在", w.connectItems.tonProof.proof, w.account)
+	// 		// }
+
+	// 	}
       
-  )}, [tonConnectUi]);
+  // )}, [tonConnectUi]);
 
 
   // const map2 = new Map(Object.entries(init_datas_dict));
@@ -257,8 +262,14 @@ function App() {
 
   const handleJoinClick = async (sendAmount, joinGameMessage, onClose) => {
 
-    let addr = await sendTx(sendAmount, joinGameMessage);
-    console.log(addr);
+    await sendTx(sendAmount, joinGameMessage)
+    // .then(response => {
+    //   console.log(response);
+    // })
+    // .catch(error => {
+    //   console.error('Error fetching data:', error);
+    // });
+    
     onClose();
     loading.onOpen();
   };
