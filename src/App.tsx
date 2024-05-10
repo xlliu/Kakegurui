@@ -83,6 +83,21 @@ function App() {
 
   const { activeRoomCounts, gameListActive, balance, sendTx, gamesCounts, sumBalance } = useCounterContract();
 
+  React.useEffect(() => {
+		tonConnectUi.onStatusChange(async w => {
+			if (!w) {
+        console.log("w 不存在 返回")
+				return;
+			}
+      console.log("TUi w Status", w.connectItems);
+			if (w.connectItems?.tonProof && 'proof' in w.connectItems.tonProof) {
+        console.log("w 存在", w.connectItems.tonProof.proof, w.account)
+			}
+
+		}
+      
+  )}, [tonConnectUi]);
+
 
   // const map2 = new Map(Object.entries(init_datas_dict));
   // let datas = map2.values()
@@ -142,19 +157,9 @@ function App() {
       case "player1":
         return (
           <AvatarGroup isBordered>
-            {/* <Avatar
-              name={row.player1 ? resMapS[(row.player1).choice.toString()] : ''}
-              isDisabled={row.player1 ? false : true}
-              isBordered={row.player1 ? true : false}
-              // icon={<AvatarIcon />}
-              radius="sm"
-              color={row.player1 ? (row.player1.addr.toString(addr_args) == userFriendlyAddress ? "warning" : "default") : "default"}
-            /> */}
             <Avatar
-              // name={row.player1 ? resMapS[(row.player1).choice.toString()] : ''}
               isDisabled={row.player1 ? false : true}
               isBordered ={row.player1 ? true : false}
-              // radius="sm"
               imgProps={{
                 alt: "User Avatar",
                 className: "p-2",
@@ -249,7 +254,8 @@ function App() {
 
   const handleJoinClick = (sendAmount, joinGameMessage, onClose) => {
 
-    sendTx(sendAmount, joinGameMessage);
+    let addr = sendTx(sendAmount, joinGameMessage);
+    console.log(addr);
     onClose();
     loading.onOpen();
   };
