@@ -123,19 +123,22 @@ function App() {
   let bn = ""
 
 
+  React.useEffect(() => {
+    if (wallet) {
+      const newMap = new Map();
+  
+      balance?.forEach((value, key) => {
+        // 在这里进行键的转换操作，假设将键转换为大写形式
+        const newKey = key.toString(addr_args);
+        // 将转换后的键值对添加到新的 Map 中
+        newMap.set(newKey, value);
+        // console.log(newKey, value);
+      });
+      bn = newMap.get(userFriendlyAddress);
+    }
+      
+  }, [balance]);
 
-  if (wallet) {
-    const newMap = new Map();
-
-    balance?.forEach((value, key) => {
-      // 在这里进行键的转换操作，假设将键转换为大写形式
-      const newKey = key.toString(addr_args);
-      // 将转换后的键值对添加到新的 Map 中
-      newMap.set(newKey, value);
-      // console.log(newKey, value);
-    });
-    bn = newMap.get(userFriendlyAddress);
-  }
 
 
 
@@ -252,9 +255,9 @@ function App() {
 
   };
 
-  const handleJoinClick = (sendAmount, joinGameMessage, onClose) => {
+  const handleJoinClick = async (sendAmount, joinGameMessage, onClose) => {
 
-    let addr = sendTx(sendAmount, joinGameMessage);
+    let addr = await sendTx(sendAmount, joinGameMessage);
     console.log(addr);
     onClose();
     loading.onOpen();

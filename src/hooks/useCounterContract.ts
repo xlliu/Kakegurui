@@ -67,8 +67,8 @@ export function useCounterContract() {
     };
   }, [counterContract]);
 
-  function sendTx(amount , payload) {
-    return counterContract?.send(sender,amount, payload);
+  async function sendTx(amount , payload) {
+    return await counterContract?.send(sender,amount, payload);
   }
 
   return {
