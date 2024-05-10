@@ -89,10 +89,10 @@ function App() {
         console.log("w 不存在 返回")
 				return;
 			}
-      console.log("TUi w Status", w.connectItems);
-			if (w.connectItems?.tonProof && 'proof' in w.connectItems.tonProof) {
-        console.log("w 存在", w.connectItems.tonProof.proof, w.account)
-			}
+      // console.log("TUi w Status", w.connectItems);
+			// if (w.connectItems?.tonProof && 'proof' in w.connectItems.tonProof) {
+      //   console.log("w 存在", w.connectItems.tonProof.proof, w.account)
+			// }
 
 		}
       
