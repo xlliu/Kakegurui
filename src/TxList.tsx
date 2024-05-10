@@ -24,7 +24,8 @@ export default function TxList(props) {
       axios.get(urlTx, {
         headers: {
           'Content-Type': 'application/json',
-          'X-Api-Key': '6cda0934e83bf49807ae65817dab80318ba494aa734fbcc923d607d930a2db61'
+          // 'X-Api-Key': '6cda0934e83bf49807ae65817dab80318ba494aa734fbcc923d607d930a2db61'
+          'X-Api-Key': 'b83f9697c49a89e3992fcf5364fc241fb4c159ff14518a85678b079fec1173d7'
         }
       })
       .then(response => {
@@ -40,9 +41,8 @@ export default function TxList(props) {
       if (!wallet) {
         clearInterval(_getWB); 
       };
-      
     }
-    const _getWB = setInterval(getWB, 5000); // 每5秒自动刷新数据
+    const _getWB = setInterval(getWB, 10000); // 每5秒自动刷新数据
     return () => {
       clearInterval(_getWB); 
     };
