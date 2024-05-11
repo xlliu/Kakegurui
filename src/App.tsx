@@ -138,7 +138,7 @@ function App() {
         const newKey = key.toString(addr_args);
         // 将转换后的键值对添加到新的 Map 中
         newMap.set(newKey, value);
-        console.log(newKey, value);
+        // console.log(newKey, value);
       });
       let _bn = newMap.get(userFriendlyAddress);
       setBn(_bn);
