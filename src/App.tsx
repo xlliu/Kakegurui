@@ -125,7 +125,8 @@ function App() {
     // console.log('触发datas的回调');
   }, [gameListActive]);
 
-  let bn = ""
+  // let bn = ""
+  const [bn, setBn] = React.useState(0);
 
 
   React.useEffect(() => {
@@ -137,9 +138,10 @@ function App() {
         const newKey = key.toString(addr_args);
         // 将转换后的键值对添加到新的 Map 中
         newMap.set(newKey, value);
-        // console.log(newKey, value);
+        console.log(newKey, value);
       });
-      bn = newMap.get(userFriendlyAddress);
+      let _bn = newMap.get(userFriendlyAddress);
+      setBn(_bn);
     }
       
   }, [balance]);
