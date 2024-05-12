@@ -3,7 +3,6 @@ import { RadioGroup, Radio, cn,Image, Tabs,Tab,Spacer  } from "@nextui-org/react
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion, faHandBackFist, faHand, faHandScissors } from '@fortawesome/free-solid-svg-icons';
 
-
 export const CustomRadio = (props) => {
   const { children, ...otherProps } = props;
 
@@ -48,7 +47,7 @@ export default function App(props) {
   const { joinGameMessage, updateJoinGameMessage } = props;
   const [selected, setSelected] = React.useState("1");
   const handleClick = (selected) => {
-    console.log('RSP选中的值为：', selected);
+    // console.log('RSP选中的值为：', selected);
     setSelected(selected)
     const newMessage = {
       ...joinGameMessage,
