@@ -17,17 +17,11 @@ export default function TxList(props) {
 
   
 
-  const urlTx = "https://toncenter.com/api/v3/transactions?account=EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc&limit=15";
+  const urlTx = "https://ga4-realtime-cr7e3hbmcq-uc.a.run.app/tx";
   useEffect(() => {
     // function getWB() {
     const getWB = () => {
-        axios.get(urlTx, {
-        headers: {
-          'Content-Type': 'application/json',
-          // 'X-Api-Key': '6cda0934e83bf49807ae65817dab80318ba494aa734fbcc923d607d930a2db61'
-          'X-Api-Key': 'b83f9697c49a89e3992fcf5364fc241fb4c159ff14518a85678b079fec1173d7'
-        }
-      })
+        axios.get(urlTx)
       .then(response => {
         // setTx(response.data);
         // console.log("tx!!.transactions", response.data)
@@ -42,7 +36,7 @@ export default function TxList(props) {
         clearInterval(_getWB); 
       };
     }
-    const _getWB = setInterval(getWB, 10000); // 每5秒自动刷新数据
+    const _getWB = setInterval(getWB, 2000);
     return () => {
       clearInterval(_getWB); 
     };
