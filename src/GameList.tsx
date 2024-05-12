@@ -17,11 +17,12 @@ export default function TxList(props) {
   // const [tx, setTx] = useState();
   const [transactions, setTransactions] = useState([]);
   const [addrMap, setAddrMap] = useState();
-
+  const [onlineUsers, setOnlineUsers] = useState(null);
 
   
 
   const urlTx = "https://toncenter.com/api/v3/transactions?account=EQACj_54prc6cL6VXR7_-vvIOwefwhmKoLW6Gd6vktXI_Czc&limit=15";
+  const urlRealtime = "https://ga4-realtime-cr7e3hbmcq-uc.a.run.app/realtime"
   useEffect(() => {
     // function getWB() {
     const getWB = () => {
@@ -51,6 +52,32 @@ export default function TxList(props) {
       clearInterval(_getWB); 
     };
   }, [transactions]); // 仅在组件挂载时执行一次
+
+  useEffect(() => {
+    const getRealtime = () => {
+        axios.get(urlRealtime
+      //     , {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     // 'X-Api-Key': '6cda0934e83bf49807ae65817dab80318ba494aa734fbcc923d607d930a2db61'
+      //     // 'X-Api-Key': 'b83f9697c49a89e3992fcf5364fc241fb4c159ff14518a85678b079fec1173d7'
+      //   }
+      // }
+    )
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(error => {
+        console.error('There was a problem with the axios operation:', error);
+      });
+    }
+    const _getRealtime = setInterval(getRealtime, 3000); // 每5秒自动刷新数据
+    return () => {
+      clearInterval(_getRealtime); 
+    };
+  }, [onlineUsers]);
+
+  
   
   const renderCell = useCallback((row, columnKey) => {
     // loading.onClose();

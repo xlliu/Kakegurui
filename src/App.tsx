@@ -3,6 +3,7 @@ import React from 'react'
 import { Navbar, NavbarBrand, NavbarContent } from "@nextui-org/react";
 import { TonConnectButton, useTonConnectUI, useTonWallet, useTonAddress } from "@tonconnect/ui-react";
 import { useCounterContract } from './hooks/useCounterContract';
+import axios from 'axios';
 
 import ChoiceRSP from './ChoiceRSP.jsx';
 import ChoiceAmount from './ChoiceAmount.jsx';
@@ -13,6 +14,8 @@ import TxList from "./TxList";
 import { walletInfo } from './WalletInfo';
 import { AcmeLogo } from "./AcmeLogo";
 import { CircularProgress } from "@nextui-org/react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 import { toNano, fromNano } from '@ton/core';
 import { columns, init_datas_dict } from "./data";
@@ -128,6 +131,38 @@ function App() {
   // let bn = ""
   const [bn, setBn] = React.useState(0);
 
+  const urlRealtime = "https://ga4-realtime-cr7e3hbmcq-uc.a.run.app/realtime"
+
+  const [realtime, setRealtime] = React.useState(0);
+  React.useEffect(() => {
+    const getRealtime = () => {
+      axios.get(urlRealtime, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    )
+      .then(response => {
+        let tmp = 0;
+        // setRealtime(response.data);
+        // console.log(response.data);
+        response.data.rows.forEach(row => {
+          tmp += Number(row.metricValues[0].value);
+          // console.log(
+          //   `${row.dimensionValues[0].value}, ${row.metricValues[0].value}`
+          // );
+        });
+        setRealtime(tmp);
+      })
+      .catch(error => {
+        console.error('There was a problem with the axios operation:', error);
+      });
+    }
+    const _getRealtime = setInterval(getRealtime, 5000); // 每5秒自动刷新数据
+    return () => {
+      clearInterval(_getRealtime); 
+    };
+  }, [realtime]);
 
   React.useEffect(() => {
     if (wallet) {
@@ -281,7 +316,7 @@ function App() {
     console.log('sendAmount!', sendAmount);
   };
   return (
-    <div className='mx-auto flex md:h-screen height: 100% flex-col dark text-foreground  font-zqh bg-kkg2 bg-cover bg-center'>
+    <div className='mx-auto flex md:h-screen height: 100% flex-col dark text-foreground bg-origin-content font-zqh bg-kkg2 bg-cover bg-center'>
           <Navbar isBordered maxWidth="2xl" className="flex items-start ">
             <NavbarContent justify="start" className='hidden sm:block'>
               <NavbarBrand className="mt-4">
@@ -299,7 +334,7 @@ function App() {
             <NavbarContent as="div" className="items-center " justify="end">
 
               <div className='flex flex-col min-w-[80px]'>
-                <p className='text-sm flex justify-end'>{t("Withdraw")}</p>
+                <p className='text-sm flex justify-end'  style={{color: '#ccfd07'}}>{t("Withdraw")}</p>
                 <div className='flex flex-row items-center justify-end'>
                   <div className='px-4'>
                     {bn != null ? fromNano(bn) : '0'}
@@ -351,13 +386,22 @@ function App() {
               <Card className="" radius="sm">
                 <CardHeader className="flex gap-3 bg-default-100">
                   <div className="flex flex-raw justify-between w-[100%]">
-                    <div className="text-md flex items-end px-1 ">{t("Active Room")} {activeRoomCounts}</div>
+                    <div className="text-md flex items-center px-1 justify-start">{t("Active Room")} {activeRoomCounts}</div>
                     {/* <div className="text-small text-default-500 flex items-center px-1 ">
                       <Tip />
                     </div> */}
-                    <div className="text-small text-default-500 flex items-center px-1 ">
-                      {t("Match completed")} {gamesCounts}
+                    <div className=' text-default-500 flex items-center '>
+                      {/* <div className="text-small justify-end px-1 ">
+                        {t("Match completed")} {gamesCounts}
+                      </div> */}
+                      <div className="flex text-md justify-end  space-x-1 px-1" style={{color: '#ccfd07'}}>
+                        <div className=''>{realtime}</div>  
+                        <div className=''>{t("Watching")} </div> 
+                        
+                      </div>
+                      <FontAwesomeIcon icon={faEye} className='' style={{color: '#ccfd07'}}/>
                     </div>
+                    
                   </div>
                 </CardHeader>
                 <Divider />
@@ -411,7 +455,7 @@ function App() {
                   <PopoverTrigger>
                     <Button
                       className="Telegram Chat" // 设置按钮的类名为 back-to-top-btn
-                      style={{ position: 'fixed', bottom: '40px', right: '30px', backgroundColor: '#ccfd07'}} // 设置按钮位置为右下角
+                      style={{ position: 'fixed', bottom: '40px', right: '30px', color: '#ccfd07'}} // 设置按钮位置为右下角
                     >
                       {t("Game Clues")}
                     </Button>
@@ -471,7 +515,7 @@ function App() {
           <ModalContent>
             {(onClose: any) => (
               <>
-              <ModalHeader className="flex flex-col gap-2">{t("Tip")} </ModalHeader>
+              <ModalHeader className="flex flex-col gap-2"  style={{color: '#ccfd07'}}>{t("Tip")} </ModalHeader>
                 <ModalBody className="flex flex-row  items-center justify-center">
                   <p>{t("Waiting for block confirmation, page data will be automatically updated after block confirmation. During the data propagation process in the block, the game data may flash the results of the last game data, which will not affect the current game results. The page display will return to normal after all nodes are synchronized and confirmed.")}</p>
                   {/* <CircularProgress 
