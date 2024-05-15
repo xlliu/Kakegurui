@@ -316,7 +316,7 @@ function App() {
     console.log('sendAmount!', sendAmount);
   };
   return (
-    <div className='mx-auto flex md:h-screen height: 100% flex-col dark text-foreground bg-origin-content font-zqh bg-kkg2 bg-cover bg-center'>
+    <div className='mx-auto flex md:h-screen height: 100% flex-col dark text-foreground bg-origin-content font-zqh bg-ttt1 bg-cover bg-center'>
           <Navbar isBordered maxWidth="2xl" className="flex items-start ">
             <NavbarContent justify="start" className='hidden sm:block'>
               <NavbarBrand className="mt-4">

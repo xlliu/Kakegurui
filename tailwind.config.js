@@ -17,6 +17,7 @@ export default {
         'kkg2': "url('/public/kkg2.png')",
         'rsp': "url('/public/bg22.jpg')",
         'zwjh': "url('/public/暂无计划.svg')",
+        'ttt1': "url('/public/varying-stripes.svg')",
       },
       fontFamily: {
         'skranji': ['Skranji', 'cursive'],
